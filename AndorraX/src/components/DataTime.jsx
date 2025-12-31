@@ -1,3 +1,4 @@
+// Comentario agregado para forzar commit
 import { Calendar, Clock } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -53,6 +54,7 @@ export const DateTime = () => {
       >
         {formatDate(currentTime)}
       </time>
+      h
     </div>
   );
 };
