@@ -9,7 +9,7 @@ import '../App.css';
 
 function HotelCard({ hotel, onClick, user }) {
   const [imgIdx, setImgIdx] = useState(0);
-  const imagenes = hotel.imagen ? hotel.imagen.split(',').map(img => img.trim()) : [];
+  const imagenes = Array.isArray(hotel.imagen) ? hotel.imagen : (hotel.imagen ? [hotel.imagen] : []);
   const nextImg = (e) => {
     e.stopPropagation();
     setImgIdx(i => (i + 1) % imagenes.length);
@@ -66,7 +66,7 @@ function HotelModal({ hotel, onClose }) {
   const [adultos, setAdultos] = useState(2);
   const [ninos, setNinos] = useState(0);
   const [habitaciones, setHabitaciones] = useState(1);
-  const imagenes = hotel.imagen ? hotel.imagen.split(',').map(img => img.trim()) : [];
+  const imagenes = hotel.imagen ? hotel.imagen.map(img => img.trim()) : [];
   const nextImg = () => setImgIdx(i => (i + 1) % imagenes.length);
   const prevImg = () => setImgIdx(i => (i - 1 + imagenes.length) % imagenes.length);
 

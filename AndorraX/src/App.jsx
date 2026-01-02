@@ -84,6 +84,8 @@ function App() {
         <section className="home-summary">
           <div className="home-summary-content pro-home">
             <div className="home-hero">
+                  <h1>web en pruebas</h1>
+
               <h1 className="home-title">AndorraX</h1>
               <h2 className="home-subtitle">Explora. Reserva. Vive.</h2>
               <p className="home-desc">
