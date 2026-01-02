@@ -10,8 +10,12 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* -moz-osx-font-smoothing: grayscale; */
+  @supports (-moz-osx-font-smoothing: grayscale) {
+  body {
+    -moz-osx-font-smoothing: grayscale;
+  }
+  }
 
 a {
   font-weight: 500;
@@ -65,4 +69,5 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
 }
