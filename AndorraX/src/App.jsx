@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Clima } from './components';
 import Actividades from './components/Actividades.jsx';
 import { DateTime } from './components/DataTime.jsx';
 import Eventos from './components/Eventos.jsx';
@@ -7,18 +8,40 @@ import Hoteles from './components/Hoteles.jsx';
 import LoginModal from './components/login.jsx';
 
 
+
 function App() {
   const [showHoteles, setShowHoteles] = useState(false);
   const [showActividades, setShowActividades] = useState(false);
   const [showEventos, setShowEventos] = useState(false);
+  const [showClima, setShowClima] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [user, setUser] = useState(null); // null si no está logueado
+  const [darkMode, setDarkMode] = useState(() => {
+    // Intenta leer preferencia previa
+    return localStorage.getItem('darkMode') === 'true';
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      document.documentElement.classList.add('dark-mode');
+      const root = document.getElementById('root');
+      if (root) root.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark-mode');
+      const root = document.getElementById('root');
+      if (root) root.classList.remove('dark-mode');
+    }
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
 
   // Función para volver al inicio
   const goHome = () => {
     setShowHoteles(false);
     setShowActividades(false);
     setShowEventos(false);
+    setShowClima(false);
   };
   return (
     <>
@@ -39,7 +62,7 @@ function App() {
       </header>
       <nav className="main-nav">
         <button className='inicio' onClick={goHome}>Inicio</button>
-        <button 
+        <button
           className={showHoteles ? 'hoteles-btn active' : 'hoteles-btn'}
           onClick={() => {
             if (!showHoteles) goHome();
@@ -48,6 +71,8 @@ function App() {
         >
           {showHoteles ? 'Cerrar Hoteles' : 'Ver Hoteles'}
         </button>
+
+        
         <button
           className={showActividades ? 'actividades active' : 'actividades'}
           onClick={() => {
@@ -62,6 +87,15 @@ function App() {
             setShowEventos(v => !v);
           }}
         >Eventos</button>
+        <button
+          className={showClima ? 'clima-btn active' : 'clima-btn'}
+          onClick={() => {
+            if (!showClima) goHome();
+            setShowClima(v => !v);
+          }}
+        >
+          {showClima ? 'Cerrar Meteorología' : 'Meteorología'}
+        </button>
         <button
           className='reserva'
           onClick={() => {
@@ -78,9 +112,19 @@ function App() {
           {!user && <span style={{position:'absolute', left:'0.7em', top:'50%', transform:'translateY(-50%)', fontSize:'1.1em'}}>🔒</span>}
           Reserva
         </button>
+        {/* Toggle modo oscuro */}
+        <div className="dark-toggle">
+          <input
+            id="darkModeToggle"
+            type="checkbox"
+            checked={darkMode}
+            onChange={() => setDarkMode(v => !v)}
+          />
+          <label htmlFor="darkModeToggle">{darkMode ? '🌙 Oscuro' : '☀️ Claro'}</label>
+        </div>
       </nav>
       {/* Sección de resumen en la página de inicio */}
-      {!showHoteles && !showActividades && !showEventos && (
+      {!showHoteles && !showActividades && !showEventos && !showClima && (
         <section className="home-summary">
           <div className="home-summary-content pro-home">
             <div className="home-hero">
@@ -141,6 +185,12 @@ function App() {
           <>
             <div className="page-title eventos-title">🎉 Eventos únicos y experiencias</div>
             <Eventos visible={showEventos} />
+          </>
+        )}
+        {showClima && (
+          <>
+            <div className="page-title clima-title">🌤️ Consulta la meteorología</div>
+            <Clima />
           </>
         )}
         <LoginModal
