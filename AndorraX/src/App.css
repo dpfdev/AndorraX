@@ -267,15 +267,24 @@ body, html, #root {
   display: flex;
   flex-direction: row;
   gap: 32px;
-  justify-content: center;
+  justify-content: flex-start;
   left: 0;
   margin: 0;
   margin-bottom: 0;
-  padding: 0.2em 0 0.2em 0;
+  padding: 0.2em 0 0.2em 180px;
   position: fixed;
   top: 60px;
   width: 100vw;
   z-index: 999;
+.main-nav .inicio {
+  margin-left: 0;
+}
+@media (max-width: 700px) {
+  .main-nav {
+    padding-left: 90px;
+    gap: 18px;
+  }
+}
 }
 .main-nav button {
   align-items: center;
