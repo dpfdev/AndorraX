@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 // Importaciones directas (evitan el error de export)
-import { Facebook, Instagram, Twitter } from "lucide-react";
-import Mail from 'lucide-react/dist/esm/icons/mail';
-import MapPin from 'lucide-react/dist/esm/icons/map-pin';
-import Phone from 'lucide-react/dist/esm/icons/phone';
+import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import './Footer.css';
 
 const Footer = () => {
