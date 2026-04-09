@@ -1,103 +1,106 @@
-<<<<<<< HEAD
-import { Calendar, Clock, FileText } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Calendar, ChevronRight, MapPin } from 'lucide-react';
+import { useState } from 'react';
 import ComprobanteModal from '../components/ComprobanteModal';
-import api from '../services/api';
 import './MisReservas.css';
 
 const MisReservas = () => {
-    const [reservas, setReservas] = useState([]);
     const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
 
-    useEffect(() => {
-        const fetchReservas = async () => {
-            try {
-                const res = await api.get('/reservas/mis-reservas');
-                setReservas(res.data);
-            } catch (err) {
-                console.error("Error al cargar reservas:", err);
-            }
-        };
-        fetchReservas();
-    }, []);
+    // Obtenemos el usuario del localStorage para el comprobante
+    const userString = localStorage.getItem('user');
+    const user = userString ? JSON.parse(userString) : {};
+    const nombreReal = user.nombre || user.name || "Usuario Registrado";
+
+    // Datos extendidos para que se vea toda la info en la tarjeta
+    const reservas = [
+        {
+            id_reserva: "AX-8822",
+            nombre_item: "Hotel Sport Hermitage",
+            fecha_inicio: "2026-02-12",
+            ubicacion: "Soldeu, Andorra",
+            precio: "450",
+            estado: "confirmada",
+            categoria: "Hotel",
+            imagen: "https://images.unsplash.com/photo-1551882547-ff43c63be812?w=800"
+        },
+        {
+            id_reserva: "AX-4412",
+            nombre_item: "Mushing en Grandvalira",
+            fecha_inicio: "2026-02-15",
+            ubicacion: "Grau Roig",
+            precio: "120",
+            estado: "pendiente",
+            categoria: "Actividad",
+            imagen: "https://images.unsplash.com/photo-1517154593937-057d87b1ec1d?w=800"
+        }
+    ];
 
     return (
         <div className="reservas-page">
-            <h1 className="reservas-title">Mis Reservas</h1>
-            <div className="reservas-grid">
-                {reservas.map((res) => (
-                    <div key={res.id_reserva} className="reserva-card">
-                        <div className="reserva-header">
-                            <span className={`badge ${res.tipo_objeto}`}>{res.tipo_objeto}</span>
-                            <span className="ref"># {res.id_reserva}</span>
+            <div className="reservas-container">
+                <header className="reservas-header">
+                    <h1>Mis <span className="blue-x">Reservas</span></h1>
+                    <p>Gestiona tus próximas experiencias en Andorra</p>
+                </header>
+                
+                <div className="reservas-grid">
+                    {reservas.map((reserva) => (
+                        <div className="reserva-card" key={reserva.id_reserva}>
+                            {/* IMAGEN */}
+                            <div className="reserva-img-container">
+                                <img src={reserva.imagen} alt={reserva.nombre_item} />
+                                <span className="category-tag">{reserva.categoria}</span>
+                            </div>
+                            
+                            {/* INFO DE LA TARJETA */}
+                            <div className="reserva-details">
+                                <div className="reserva-main">
+                                    <div className={`status-label ${reserva.estado}`}>
+                                        {reserva.estado}
+                                    </div>
+                                    <h3>{reserva.nombre_item}</h3>
+                                    
+                                    <div className="reserva-icons">
+                                        <div className="icon-text">
+                                            <Calendar size={16} />
+                                            <span>{new Date(reserva.fecha_inicio).toLocaleDateString()}</span>
+                                        </div>
+                                        <div className="icon-text">
+                                            <MapPin size={16} />
+                                            <span>{reserva.ubicacion}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="reserva-footer">
+                                    <div className="price-info">
+                                        <small>Total</small>
+                                        <span className="price-amount">{reserva.precio}€</span>
+                                    </div>
+                                    
+                                    <button 
+                                        className="btn-ver-detalles"
+                                        onClick={() => setReservaSeleccionada({
+                                            ...reserva,
+                                            nombre_usuario: nombreReal // Inyectamos el nombre para el modal
+                                        })}
+                                    >
+                                        Ver Comprobante <ChevronRight size={18} />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="reserva-body">
-                            <h3>{res.nombre_item}</h3>
-                            <p><Calendar size={14} /> {new Date(res.fecha_inicio).toLocaleDateString()}</p>
-                            {res.fecha_fin && <p><Clock size={14} /> Check-out: {new Date(res.fecha_fin).toLocaleDateString()}</p>}
-                        </div>
-                        <div className="reserva-footer">
-                            <span className="precio">{res.precio}€</span>
-                            <button className="btn-ticket" onClick={() => setReservaSeleccionada(res)}>
-                                <FileText size={16} /> Comprobante
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
+            {/* MODAL */}
             {reservaSeleccionada && (
                 <ComprobanteModal 
                     reserva={reservaSeleccionada} 
                     onClose={() => setReservaSeleccionada(null)} 
                 />
             )}
-=======
-import { Calendar, CreditCard } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import api from '../services/api';
-
-const MisReservas = () => {
-    const [reservas, setReservas] = useState([]);
-
-    useEffect(() => {
-        api.get('/reservas/mis-reservas')
-            .then(res => setReservas(res.data))
-            .catch(err => console.error("Error al cargar historial:", err));
-    }, []);
-
-    return (
-        <div className="container" style={{ padding: '40px 20px' }}>
-            <h1 style={{ marginBottom: '30px' }}>Mis Reservas en Andorra</h1>
-            <div style={{ display: 'grid', gap: '15px' }}>
-                {reservas.map(res => (
-                    <div key={res.id_reserva} style={{ 
-                        background: 'white', padding: '20px', borderRadius: '12px', border: '1px solid #e2e8f0',
-                        display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-                    }}>
-                        <div>
-                            <span style={{ fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', color: '#64748b' }}>
-                                {res.tipo_objeto}
-                            </span>
-                            <h3 style={{ margin: '5px 0' }}>{res.nombre_item || 'Cargando nombre...'}</h3>
-                            <div style={{ display: 'flex', gap: '15px', color: '#94a3b8', fontSize: '0.9rem' }}>
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                    <Calendar size={14}/> {new Date(res.fecha_inicio).toLocaleDateString()}
-                                </span>
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                    <CreditCard size={14}/> {res.precio}€
-                                </span>
-                            </div>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                            <span style={{ color: '#22c55e', fontWeight: 'bold' }}>{res.estado}</span>
-                            <p style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>ID #{res.id_reserva}</p>
-                        </div>
-                    </div>
-                ))}
-                {reservas.length === 0 && <p>No tienes reservas todavía.</p>}
-            </div>
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
         </div>
     );
 };

@@ -1,82 +1,69 @@
+import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
-// Importaciones directas (evitan el error de export)
-<<<<<<< HEAD
-import Facebook from 'lucide-react/dist/esm/icons/facebook';
-import Instagram from 'lucide-react/dist/esm/icons/instagram';
-import Mail from 'lucide-react/dist/esm/icons/mail';
-import MapPin from 'lucide-react/dist/esm/icons/map-pin';
-import Phone from 'lucide-react/dist/esm/icons/phone';
-import Twitter from 'lucide-react/dist/esm/icons/twitter';
-=======
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
 import './Footer.css';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+    const year = new Date().getFullYear();
 
-  return (
-    <footer className="main-footer">
-      <div className="footer-container">
-        
-        {/* COLUMNA 1: LOGO Y DESCRIPCIÓN */}
-        <div className="footer-column">
-          <h2 className="footer-logo">ANDORRA<span>X</span></h2>
-          <p className="footer-description">
-            Tu portal definitivo para descubrir los secretos de los Pirineos. 
-            Hoteles, aventuras y eventos exclusivos en el corazón de Andorra.
-          </p>
-          <div className="footer-socials">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook size={20} /></a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter size={20} /></a>
-          </div>
-        </div>
+    return (
+        <footer className="main-footer">
+            <div className="footer-container">
+                <div className="footer-column brand-col">
+                    <Link to="/" className="f-logo-link">
+                        <img 
+                            src="/andorrax.png" 
+                            alt="AndorraX Logo" 
+                            className="f-logo-img" 
+                        />
+                        <span className="f-logo-text">
+                            ANDORRA<span className="blue-x">X</span>
+                        </span>
+                    </Link>
+                    <p className="f-tagline">Tu guía premium en los Pirineos.</p>
+                    <div className="f-socials">
+                        <a href="https://instagram.com/andorrax.es" target="_blank" rel="noreferrer"><Instagram size={20} /></a>
+                        <a href="https://twitter.com/AndorraX_es" target="_blank" rel="noreferrer"><Twitter size={20} /></a>
+                        <a href="https://facebook.com/andorrax.es" target="_blank" rel="noreferrer"><Facebook size={20} /></a>
+                    </div>
+                </div>
 
-        {/* COLUMNA 2: ENLACES RÁPIDOS */}
-        <div className="footer-column">
-          <h3>Explorar</h3>
-          <ul>
-            <li><Link to="/hoteles">Hoteles</Link></li>
-            <li><Link to="/actividades">Actividades</Link></li>
-            <li><Link to="/eventos">Próximos Eventos</Link></li>
-          </ul>
-        </div>
+                <div className="footer-column">
+                    <h5 className="f-title">Servicios</h5>
+                    <nav className="f-nav">
+                        <Link to="/hoteles">Hoteles</Link>
+                        <Link to="/actividades">Actividades</Link>
+                        <Link to="/eventos">Eventos</Link>
+                    </nav>
+                </div>
 
-        {/* COLUMNA 3: SOPORTE / LEGAL */}
-        <div className="footer-column">
-          <h3>Información</h3>
-          <ul>
-            <li><Link to="/sobre-nosotros">Sobre Nosotros</Link></li>
-            <li><Link to="/politica-privacidad">Privacidad</Link></li>
-            <li><Link to="/terminos">Términos y Condiciones</Link></li>
-            <li><Link to="/cookies">Política de Cookies</Link></li>
-          </ul>
-        </div>
+                <div className="footer-column">
+                    <h5 className="f-title">Cuenta</h5>
+                    <nav className="f-nav">
+                        <Link to="/mis-reservas">Mis Reservas</Link>
+                        <Link to="/perfil">Mi Perfil</Link>
+                    </nav>
+                </div>
 
-        {/* COLUMNA 4: CONTACTO */}
-        <div className="footer-column">
-          <h3>Contacto</h3>
-          <ul className="footer-contact">
-            <li><MapPin size={16} /> <span>Av. Carlemany, AD700, Andorra</span></li>
-            <li><Phone size={16} /> <span>+376 123 456</span></li>
-            <li><Mail size={16} /> <span>info@andorrax.ad</span></li>
-          </ul>
-        </div>
+                <div className="footer-column contact-col">
+                    <h5 className="f-title">Contacto</h5>
+                    <div className="f-contact-item"><Phone size={14} /> +376 800 123</div>
+                    <div className="f-contact-item"><Mail size={14} /> hola@andorrax.es</div>
+                    <div className="f-contact-item"><MapPin size={14} /> Andorra la Vella</div>
+                </div>
+            </div>
 
-      </div>
-
-      {/* BARRA INFERIOR DE COPYRIGHT */}
-      <div className="footer-bottom">
-        <div className="footer-bottom-content">
-          <p>&copy; {currentYear} ANDORRAX. Todos los derechos reservados.</p>
-          <div className="footer-credits">
-            Hecho con ❤️ para amantes de la montaña
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+            <div className="footer-bar">
+                <div className="footer-bar-content">
+                    <span>© {year} AndorraX.es</span>
+                    <div className="f-legal">
+                        <a href="#">Privacidad</a>
+                        <span className="dot">•</span>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
 };
 
 export default Footer;

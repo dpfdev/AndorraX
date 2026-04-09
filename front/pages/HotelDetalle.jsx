@@ -12,10 +12,7 @@ const HotelDetalle = () => {
   const [reserva, setReserva] = useState({ checkIn: '', checkOut: '', personas: 1 });
   const [total, setTotal] = useState(0);
 
-<<<<<<< HEAD
   // 1. Cargar datos del hotel
-=======
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
   useEffect(() => {
     const fetchHotel = async () => {
       try {
@@ -28,10 +25,7 @@ const HotelDetalle = () => {
     fetchHotel();
   }, [id]);
 
-<<<<<<< HEAD
   // 2. Calcular precio total automáticamente
-=======
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
   useEffect(() => {
     if (reserva.checkIn && reserva.checkOut && hotel) {
       const noches = (new Date(reserva.checkOut) - new Date(reserva.checkIn)) / (1000 * 60 * 60 * 24);
@@ -39,7 +33,6 @@ const HotelDetalle = () => {
     }
   }, [reserva.checkIn, reserva.checkOut, hotel]);
 
-<<<<<<< HEAD
   // 3. Función de Reserva (CORREGIDA)
   const handleReserva = async () => {
     const token = localStorage.getItem('token');
@@ -65,25 +58,6 @@ const HotelDetalle = () => {
     } catch (err) {
       console.error("Error en reserva:", err.response?.data || err.message);
       alert("Error al procesar la reserva: " + (err.response?.data?.error || "Inténtalo de nuevo"));
-=======
-  const handleReserva = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return navigate('/login');
-    if (total <= 0) return alert("Selecciona fechas válidas");
-
-    try {
-      await api.post('/reservas', {
-        id_hotel: id,
-        fecha_inicio: reserva.checkIn,
-        fecha_fin: reserva.checkOut,
-        huespedes: reserva.personas,
-        precio_total: total
-      });
-      alert("¡Reserva confirmada!");
-      navigate('/mis-reservas');
-    } catch (err) {
-      alert("Error al procesar la reserva");
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
     }
   };
 
@@ -96,11 +70,7 @@ const HotelDetalle = () => {
           <ArrowLeft size={16}/> VOLVER AL LISTADO
         </button>
         
-<<<<<<< HEAD
         {/* Carrusel de imágenes */}
-=======
-        {/* Usamos el array de imágenes que ya viene procesado del backend */}
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
         <CarruselManual imagenes={hotel.imagenes} />
 
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '25px' }}>
@@ -126,7 +96,6 @@ const HotelDetalle = () => {
         <div style={{ position: 'sticky', top: '100px', background: 'white', padding: '25px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}>
           <h3 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>{hotel.precio_base_noche}€ / noche</h3>
           
-<<<<<<< HEAD
           <div style={{ marginBottom: '15px' }}>
             <label style={{ fontSize: '0.75rem', fontWeight: 'bold' }}>CHECK-IN</label>
             <input type="date" value={reserva.checkIn} onChange={(e) => setReserva({...reserva, checkIn: e.target.value})} style={inputStyle} />
@@ -141,18 +110,10 @@ const HotelDetalle = () => {
             <label style={{ fontSize: '0.75rem', fontWeight: 'bold' }}>HUÉSPEDES</label>
             <input type="number" min="1" value={reserva.personas} onChange={(e) => setReserva({...reserva, personas: e.target.value})} style={inputStyle} />
           </div>
-=======
-          <label style={{ fontSize: '0.75rem', fontWeight: 'bold' }}>CHECK-IN</label>
-          <input type="date" value={reserva.checkIn} onChange={(e) => setReserva({...reserva, checkIn: e.target.value})} style={inputStyle} />
-          
-          <label style={{ fontSize: '0.75rem', fontWeight: 'bold', display: 'block', marginTop: '15px' }}>CHECK-OUT</label>
-          <input type="date" value={reserva.checkOut} onChange={(e) => setReserva({...reserva, checkOut: e.target.value})} style={inputStyle} />
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
           
           <button 
             onClick={handleReserva} 
             disabled={total <= 0}
-<<<<<<< HEAD
             style={{ 
                 ...btnStyle, 
                 background: total > 0 ? '#0f172a' : '#94a3b8', 
@@ -167,25 +128,14 @@ const HotelDetalle = () => {
                 Precio total por {Math.round(total / hotel.precio_base_noche)} noches
             </p>
           )}
-=======
-            style={{ ...btnStyle, background: total > 0 ? '#0f172a' : '#94a3b8', cursor: total > 0 ? 'pointer' : 'not-allowed' }}
-          >
-            CONFIRMAR RESERVA {total > 0 && `(${total}€)`}
-          </button>
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
         </div>
       </aside>
     </div>
   );
 };
 
-<<<<<<< HEAD
 // Estilos rápidos
 const inputStyle = { width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #cbd5e1', boxSizing: 'border-box' };
 const btnStyle = { width: '100%', padding: '15px', marginTop: '20px', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold', transition: 'background 0.3s' };
-=======
-const inputStyle = { width: '100%', padding: '10px', marginTop: '5px', borderRadius: '6px', border: '1px solid #cbd5e1' };
-const btnStyle = { width: '100%', padding: '15px', marginTop: '20px', color: 'white', border: 'none', borderRadius: '8px', fontWeight: 'bold' };
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
 
 export default HotelDetalle;
