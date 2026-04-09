@@ -1,0 +1,25 @@
+.reservas-page { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+.reservas-title { margin-bottom: 30px; font-size: 2rem; color: #1e293b; }
+.reservas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+.reserva-card { 
+    background: white; border-radius: 12px; border: 1px solid #e2e8f0; 
+    padding: 20px; display: flex; flex-direction: column; gap: 15px;
+}
+
+.reserva-header { display: flex; justify-content: space-between; align-items: center; }
+.badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+.badge.hotel { background: #dcfce7; color: #166534; }
+.badge.actividad { background: #e0f2fe; color: #075985; }
+.badge.evento { background: #fef3c7; color: #92400e; }
+.ref { color: #94a3b8; font-size: 0.8rem; }
+
+.reserva-body h3 { margin: 0; font-size: 1.2rem; color: #0f172a; }
+.reserva-body p { margin: 5px 0; color: #64748b; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+
+.reserva-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.precio { font-weight: 800; font-size: 1.2rem; }
+.btn-ticket { 
+    display: flex; align-items: center; gap: 6px; background: #0f172a; 
+    color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; 
+}

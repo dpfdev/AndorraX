@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+.hoteles-page {
+  background-color: #f1f5f9; /* Color un poco más frío/nieve */
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+/* --- HEADER DINÁMICO --- */
+.hoteles-header {
+  background: linear-gradient(rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.05)), url('/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 120px 0;
+  text-align: center;
+  color: white;
+}
+
+.hoteles-header h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.hoteles-header h1 span { color: #38bdf8; }
+
+/* --- LAYOUT --- */
+.main-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  margin-top: -60px; /* Eleva el contenido sobre el header */
+  padding-bottom: 100px;
+  align-items: start;
+}
+
+/* --- SIDEBAR GLASSMORPHISM --- */
+.sidebar-filters {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* --- SCROLL PERSONALIZADO --- */
+.sidebar-content::-webkit-scrollbar { width: 6px; }
+.sidebar-content::-webkit-scrollbar-track { background: transparent; }
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+  border: 2px solid white;
+}
+.sidebar-content::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #0f172a;
+  margin-bottom: 30px;
+}
+
+.filter-group label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+  margin-bottom: 10px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-with-icon input, .input-with-icon select, .filter-group select {
+  background: white;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px 12px 12px 40px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-with-icon input:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+}
+
+.range-input {
+  width: 100%;
+  accent-color: #0ea5e9;
+  height: 6px;
+  border-radius: 10px;
+}
+
+.btn-reset-sidebar {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-weight: 700;
+  margin-top: 20px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+}
+
+.btn-reset-sidebar:hover { background: #ef4444; }
+
+/* --- GRID DE HOTELES --- */
+.hoteles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 30px;
+}
+
+/* Estilo para que HotelCard se vea pro (añade esto si no tienes estilos en HotelCard.css) */
+.hotel-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.hotel-card:hover {
+  transform: translateY(-10px) scale(1.02) !important;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.15) !important;
+}
+
+@media (max-width: 992px) {
+  .main-layout { grid-template-columns: 1fr; margin-top: 20px; }
+  .sidebar-filters { position: static; max-height: none; }
+}

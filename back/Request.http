@@ -1,0 +1,38 @@
+GET http://localhost:3000/api/usuarios
+
+
+###
+GET http://localhost:3000/api/usuarios/1
+
+
+###
+GET http://localhost:3000/api/eventos
+###
+GET http://localhost:3000/api/actividades
+
+### 
+
+GET  http://localhost:3000/api/categorias
+###
+
+###
+GET  http://localhost:3000/api/favoritos
+###
+
+###
+GET  http://localhost:3000/api/hoteles
+###
+GET  http://localhost:3000/api/hoteles/1
+
+###  actividades
+GET  http://localhost:3000/api/actividades
+
+
+### resenas
+GET  http://localhost:3000/api/resenas/actividad/1
+### resenas por id_usuario
+### resenas por id_hotel
+GET  http://localhost:3000/api/resenas/hotel/1
+### resenas por id_actividad
+GET  http://localhost:3000/api/imagenes
+

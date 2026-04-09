@@ -1,0 +1,20 @@
+.modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;
+    z-index: 3000; padding: 20px;
+}
+.modal-content {
+    background: white; width: 100%; max-width: 500px; max-height: 90vh;
+    border-radius: 25px; padding: 30px; overflow-y: auto; position: relative;
+}
+.modal-close { position: absolute; top: 15px; right: 15px; border: none; background: #f1f5f9; border-radius: 50%; padding: 5px; cursor: pointer; }
+
+/* Ticket interno */
+.ticket-container { border: 2px solid #f1f5f9; border-radius: 15px; padding: 25px; margin-bottom: 20px; }
+.ticket-header { display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px dashed #cbd5e1; padding-bottom: 15px; }
+.ticket-brand { font-weight: 900; font-size: 1.4rem; }
+.ticket-body h2 { font-size: 1.5rem; margin: 15px 0; }
+.ticket-dates { display: flex; gap: 20px; background: #f8fafc; padding: 15px; border-radius: 10px; margin: 20px 0; }
+.date-item span { display: block; font-size: 0.7rem; color: #64748b; font-weight: bold; }
+
+.btn-print { width: 100%; padding: 15px; background: #0f172a; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
