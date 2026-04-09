@@ -1,17 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-<<<<<<< HEAD
     baseURL: 'http://localhost:3000/api'
 });
 
 // Este interceptor pega el token automáticamente si existe
-=======
-    baseURL: `${import.meta.env.VITE_API_URL}/api`
-});
-
-// Interceptor para añadir el token automáticamente
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {

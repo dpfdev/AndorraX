@@ -1,15 +1,6 @@
+import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-// Importaciones directas (evitan el error de export)
-<<<<<<< HEAD
-import Facebook from 'lucide-react/dist/esm/icons/facebook';
-import Instagram from 'lucide-react/dist/esm/icons/instagram';
-import Mail from 'lucide-react/dist/esm/icons/mail';
-import MapPin from 'lucide-react/dist/esm/icons/map-pin';
-import Phone from 'lucide-react/dist/esm/icons/phone';
-import Twitter from 'lucide-react/dist/esm/icons/twitter';
-=======
-import { Facebook, Instagram, Mail, MapPin, Phone, Twitter } from "lucide-react";
->>>>>>> 0d404fab54085fa2163fa6e1a2d409567d4145b9
 import './Footer.css';
 
 const Footer = () => {
@@ -27,9 +18,9 @@ const Footer = () => {
             Hoteles, aventuras y eventos exclusivos en el corazón de Andorra.
           </p>
           <div className="footer-socials">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook size={20} /></a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter size={20} /></a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebookF size={20} /></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram size={20} /></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter size={20} /></a>
           </div>
         </div>
 
@@ -58,9 +49,9 @@ const Footer = () => {
         <div className="footer-column">
           <h3>Contacto</h3>
           <ul className="footer-contact">
-            <li><MapPin size={16} /> <span>Av. Carlemany, AD700, Andorra</span></li>
-            <li><Phone size={16} /> <span>+376 123 456</span></li>
-            <li><Mail size={16} /> <span>info@andorrax.ad</span></li>
+            <li><FiMapPin size={16} /> <span>Av. Carlemany, AD700, Andorra</span></li>
+            <li><FiPhone size={16} /> <span>+376 123 456</span></li>
+            <li><FiMail size={16} /> <span>info@andorrax.ad</span></li>
           </ul>
         </div>
 
