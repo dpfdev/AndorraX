@@ -1,0 +1,225 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.reservas-page {
+    background-color: #020617; /* Fondo ultra oscuro */
+    min-height: 100vh;
+    padding: 120px 20px 60px; /* Espacio para el Navbar fijo */
+    font-family: 'Inter', sans-serif;
+}
+
+.reservas-container {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.reservas-header {
+    margin-bottom: 40px;
+}
+
+.reservas-header h1 {
+    color: white;
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.reservas-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+/* --- GRID DE TARJETAS --- */
+.reservas-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* --- DISEÑO DE LA TARJETA --- */
+.reserva-card {
+    background: #0f172a;
+    border-radius: 30px; /* Bordes muy redondeados estilo AndorraX */
+    display: flex;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reserva-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* --- IMAGEN IZQUIERDA --- */
+.reserva-img-container {
+    width: 280px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.reserva-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-tag {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    color: white;
+    padding: 5px 14px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- INFORMACIÓN CENTRAL --- */
+.reserva-details {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reserva-main h3 {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 10px 0 15px 0;
+}
+
+/* Labels de Estado */
+.status-label {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-label.confirmada {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.status-label.pendiente {
+    background: rgba(234, 179, 8, 0.15);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+/* Iconos (Calendario y Mapa) */
+.reserva-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.icon-text span {
+    color: #cbd5e1;
+}
+
+/* --- SECCIÓN DERECHA (PRECIO Y BOTÓN) --- */
+.reserva-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    padding-left: 35px;
+    min-width: 200px;
+}
+
+.price-info {
+    text-align: right;
+}
+
+.price-info small {
+    display: block;
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.price-amount {
+    color: white;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+/* Botón Ver Comprobante */
+.btn-ver-detalles {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-ver-detalles:hover {
+    background: #2563eb;
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+}
+
+/* --- RESPONSIVE (MÓVILES) --- */
+@media (max-width: 850px) {
+    .reserva-card {
+        flex-direction: column;
+    }
+
+    .reserva-img-container {
+        width: 100%;
+        height: 200px;
+    }
+
+    .reserva-details {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .reserva-footer {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 20px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .price-info {
+        text-align: left;
+    }
+
+    .btn-ver-detalles {
+        width: auto;
+    }
+}

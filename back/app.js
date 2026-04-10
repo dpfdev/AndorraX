@@ -47,12 +47,12 @@ app.use('/api/imagenes', imagenesRoutes);
 // Middleware de error
 app.use(errorHandler);
 
-// Esto es importante para local, pero Vercel usará su propia gestión de puertos
+// Solo para desarrollo local
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-        console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+        console.log(`🚀 Servidor en http://localhost:${PORT}`);
     });
 }
 
-export default app; // Exportación necesaria para Vercel
+export default app; // <--- OBLIGATORIO PARA VERCEL

@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+.eventos-page {
+  background-color: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* --- HEADER CON MÁXIMA TRANSPARENCIA --- */
+.eventos-header {
+  /* Bajamos la opacidad del negro al 0.2 y 0.05 para que la foto se vea casi pura */
+  background: linear-gradient(
+      rgba(15, 23, 42, 0.25), 
+      rgba(15, 23, 42, 0.05)
+    ), 
+    url('/Apres.jpg');
+  
+  background-size: cover;
+  background-position: center 30%; /* Ajusta el encuadre de la foto */
+  background-attachment: fixed;    /* Efecto parallax para lucir más la imagen */
+  padding: 140px 0;                /* Más alto para que la foto ocupe más pantalla */
+  text-align: center;
+  color: white;
+  margin-bottom: 60px;
+  
+  /* Sombra suave interna para que el texto respire */
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.2); 
+}
+
+.header-badge {
+  background: rgba(14, 165, 233, 0.7); /* Transparencia en el azul */
+  backdrop-filter: blur(8px);          /* Efecto cristal */
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  display: inline-block;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.eventos-header h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  margin-bottom: 15px;
+  /* Sombreado fuerte al texto para que sea legible sobre la foto clara */
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  letter-spacing: -1px;
+}
+
+.eventos-header h1 span {
+  color: #38bdf8; /* Un azul un poco más brillante */
+}
+
+.eventos-header p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* --- ESTILO DE TARJETAS (Glassmorphism sutil) --- */
+.evento-card {
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #1e293b;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f1f5f9;
+}
+
+.evento-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+}
+
+/* El resto de estilos (grid, date-badge, body) se mantienen igual que el anterior */
+.eventos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 40px;
+}
+
+.evento-image-wrapper {
+  position: relative;
+  height: 220px;
+}
+
+.evento-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.date-badge {
+  position: absolute;
+  bottom: -20px;
+  left: 25px;
+  background: white;
+  width: 65px;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  z-index: 2;
+}
+
+.date-badge .day { font-size: 1.5rem; font-weight: 800; color: #0f172a; line-height: 1; }
+.date-badge .month { font-size: 0.8rem; font-weight: 700; color: #0ea5e9; }
+
+.evento-body { padding: 35px 25px 25px 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.evento-category { display: flex; align-items: center; gap: 6px; color: #0ea5e9; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+.evento-body h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; }
+.evento-details { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+.detail { display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.9rem; }
+.evento-excerpt { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+.evento-footer { border-top: 1px solid #f1f5f9; padding-top: 15px; }
+.more-info { display: flex; align-items: center; gap: 6px; color: #0f172a; font-weight: 700; font-size: 0.9rem; }
+
+@media (max-width: 640px) {
+  .eventos-header { padding: 80px 0; }
+  .eventos-header h1 { font-size: 2.2rem; }
+}
