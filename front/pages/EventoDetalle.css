@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+/* --- VARIABLES DINÁMICAS (Mantenidas) --- */
+:root {
+  --bg-detail: #f4f7f9;
+  --bg-card: #ffffff;
+  --border-ui: rgba(0, 0, 0, 0.08);
+  --text-main: #1a1a2e;
+  --text-muted: #5a6b7d;
+  --accent: #0077ff;
+}
+
+body.dark-mode {
+  --bg-detail: #0a0a0c;
+  --bg-card: #141418;
+  --border-ui: rgba(255, 255, 255, 0.1);
+  --text-main: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --accent: #00f3ff;
+}
+
+.evento-detalle-page-fixed {
+  background-color: var(--bg-detail);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 110px 20px 20px; /* Padding superior para el Navbar fijo */
+  font-family: 'JetBrains Mono', monospace;
+  transition: 0.4s;
+}
+
+.container-grid-cyber {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* --- BOTÓN VOLVER --- */
+.btn-back-minimal {
+  background: none; border: none;
+  color: var(--accent);
+  font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 15px;
+  font-family: inherit;
+  font-size: 0.75rem;
+}
+
+/* --- CONTENEDOR DE IMAGEN (COMPACTO) --- */
+.hero-frame-cover {
+  width: 100%;
+  height: 300px; /* Altura controlada para evitar scroll */
+  background-color: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border-ui);
+}
+
+/* --- LA IMAGEN OCUPA TODO EL ESPACIO (COVER) --- */
+.img-cyber-full-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Se estira para cubrir todo, cortando si es necesario */
+  display: block;
+}
+
+.frame-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.5));
+  pointer-events: none;
+}
+
+/* --- TEXTOS COMPACTOS --- */
+.tag-id-cyan { color: var(--accent); font-size: 0.7rem; font-weight: 800; }
+
+.title-huge-compact {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 5px 0 10px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.evento-meta-compact {
+  display: flex; gap: 20px; color: var(--text-muted); font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.icon-cyan { color: var(--accent); }
+
+.evento-desc-card-minimal {
+  padding: 15px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-ui);
+  max-height: 120px; /* Limita la descripción para que no empuje todo hacia abajo */
+  overflow-y: auto;
+}
+
+.evento-desc-card-minimal::-webkit-scrollbar { width: 4px; }
+.evento-desc-card-minimal::-webkit-scrollbar-thumb { background: var(--border-ui); border-radius: 10px; }
+
+.evento-desc-card-minimal h3 {
+  font-size: 0.75rem; color: var(--accent); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.evento-desc-card-minimal p { font-size: 0.9rem; line-height: 1.5; color: var(--text-muted); }
+
+/* --- SIDEBAR WIDGET (Mantenido) --- */
+.booking-widget-cyber {
+  background: var(--bg-card);
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid var(--accent);
+  position: sticky; top: 110px;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.05);
+}
+
+.price-header-compact { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; text-align: center; }
+.price-header-compact .label { font-size: 0.8rem; color: var(--text-muted); }
+
+.input-cyber-group label {
+  display: block; font-size: 0.65rem; font-weight: 800; color: var(--accent); margin-bottom: 5px;
+}
+
+.input-cyber-group input {
+  width: 100%; padding: 12px; background: rgba(128,128,128,0.08);
+  border: 1px solid var(--border-ui); border-radius: 8px; color: var(--text-main); font-family: inherit;
+}
+
+.total-row-cyber {
+  display: flex; justify-content: space-between; margin: 20px 0;
+  padding-top: 15px; border-top: 1px dashed var(--border-ui); font-weight: 800;
+}
+
+.total-price-neon { color: var(--accent); font-size: 1.4rem; text-shadow: 0 0 10px var(--accent); }
+
+/* --- BOTÓN NEÓN (Mantenido) --- */
+.btn-reserve-neon-boost {
+  width: 100%; padding: 18px; background: var(--accent); color: #000;
+  border: none; border-radius: 12px; font-weight: 900; cursor: pointer;
+  text-transform: uppercase; font-family: inherit; transition: 0.3s;
+}
+
+body.dark-mode .btn-reserve-neon-boost {
+  box-shadow: 0 0 20px var(--accent);
+}
+
+.btn-reserve-neon-boost:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+.no-scroll-hint { text-align: center; font-size: 0.65rem; color: var(--text-muted); margin-top: 15px; }
+
+/* LOADING */
+.loading-screen-cyber {
+  height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-detail); color: var(--accent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .container-grid-cyber { grid-template-columns: 1fr; }
+  .evento-sidebar .booking-widget-cyber { position: static; }
+  .hero-frame-cover { height: 220px; }
+}

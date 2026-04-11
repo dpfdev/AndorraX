@@ -1,77 +1,96 @@
-import { ArrowRight, Clock, Map } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Activity, ArrowRight, Clock, MapPin } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
-import './Actividades.css'; // Asegúrate de que el nombre coincida
+import './HotelesListado.css'; // Usamos el mismo CSS para mantener la coherencia total
 
 const Actividades = () => {
-  const [actividades, setActividades] = useState([]);
-  const URL_BASE = "http://localhost:3000";
-  const DEFAULT_IMAGE = "/hero.jpg"; // Usamos tu imagen local que sí funciona
+    const [actividades, setActividades] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const URL_BASE = "http://localhost:3000"; 
+    const DEFAULT_IMAGE = "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=2070&auto=format&fit=crop"; 
 
-  useEffect(() => {
-    const fetchActividades = async () => {
-      try {
-        const res = await api.get('/actividades');
-        setActividades(res.data);
-      } catch (err) {
-        console.error("Error cargando actividades:", err);
-      }
-    };
-    fetchActividades();
-  }, []);
+    useEffect(() => {
+        const fetchActividades = async () => {
+            try {
+                const response = await api.get('/actividades');
+                setActividades(response.data);
+            } catch (error) {
+                console.error("Error cargando actividades:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchActividades();
+    }, []);
 
-  // Función crítica para detener el bucle infinito
-  const handleImageError = (e) => {
-    e.target.onerror = null; // Desactiva el manejador para que no vuelva a intentar si falla
-    e.target.src = DEFAULT_IMAGE; // Cambia la imagen fallida por tu hero local
-  };
+    if (isLoading) {
+        return (
+            <div className="loading-wrapper">
+                <div className="loading-tech-text">SINCRONIZANDO SECTOR ANDORRA...</div>
+            </div>
+        );
+    }
 
-  return (
-    <div className="actividades-page">
-      <header className="page-header">
-        <div className="container">
-          <h1>Experiencias en <span>Andorra</span></h1>
-          <p>Adrenalina y relax en el corazón de los Pirineos</p>
+    return (
+        <div className="hoteles-page-container"> {/* Mantengo las clases de CSS para que el diseño sea idéntico */}
+            <header className="section-header-modern">
+                <div className="header-meta">/ ANDORRAX // MISSION SELECTION</div>
+                <h2 className="glitch-title-small">Aventura <span className="x-neon">Extrema</span></h2>
+            </header>
+
+            <main className="hoteles-grid-layout">
+                {actividades.map((act, index) => (
+                    <motion.div 
+                        key={act.id_actividad} 
+                        className="cyber-hotel-card"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.05 }}
+                    >
+                        <div className="card-media-wrapper">
+                            <img 
+                                src={act.foto_principal ? `${URL_BASE}${act.foto_principal}` : DEFAULT_IMAGE} 
+                                alt={act.nombre} 
+                                className="hotel-main-image"
+                                onError={(e) => { e.target.src = DEFAULT_IMAGE; }}
+                            />
+                            <div className="card-glow-edge"></div>
+                            <div className="price-tag-neon">{act.precio}€</div>
+                            <div className="rating-tag-glass">
+                                <Clock size={12} /> {act.duracion || '2h'}
+                            </div>
+                        </div>
+
+                        <div className="card-body-modern">
+                            <div className="category-tag">
+                                <Activity size={10} /> FIELD MISSION // ACTIVE
+                            </div>
+                            <h3 className="hotel-title-text">{act.nombre}</h3>
+                            <div className="card-info-data">
+                                <p className="data-item-mono">
+                                    <MapPin size={14} className="icon-accent" /> 
+                                    {act.ciudad?.toUpperCase() || 'ANDORRA'}
+                                </p>
+                            </div>
+                            <div className="amenities-row">
+                                <span className="amenity-pill">GUIDE</span>
+                                <span className="amenity-pill">GEAR</span>
+                                <span className="amenity-pill">PRO</span>
+                            </div>
+                        </div>
+
+                        <div className="card-footer-action">
+                            <Link to={`/actividades/${act.id_actividad}`} className="btn-explore-modern">
+                                VER DETALLES <ArrowRight size={16} />
+                            </Link>
+                        </div>
+                    </motion.div>
+                ))}
+            </main>
         </div>
-      </header>
-
-      <main className="container">
-        <div className="activities-grid">
-          {actividades.map((act) => (
-            <Link to={`/actividades/${act.id_actividad}`} key={act.id_actividad} className="activity-card">
-              <div className="activity-image-wrapper">
-                <div className="price-badge">{act.precio}€</div>
-                <img 
-                  src={act.foto_principal ? `${URL_BASE}${act.foto_principal}` : DEFAULT_IMAGE} 
-                  alt={act.nombre} 
-                  className="activity-image"
-                  onError={handleImageError} 
-                />
-              </div>
-              <div className="activity-info">
-                <h3>{act.nombre}</h3>
-                <div className="activity-meta">
-                  <span className="meta-item">
-                    <Map size={16} /> {act.ciudad || 'Andorra'}
-                  </span>
-                  <span className="meta-item">
-                    <Clock size={16} /> {act.duracion || 'Consultar'}
-                  </span>
-                </div>
-                <p className="activity-description">
-                  {act.descripcion ? act.descripcion.substring(0, 100) + '...' : 'Descubre esta increíble actividad en la nieve.'}
-                </p>
-                <div className="activity-footer">
-                  <span className="btn-details">Ver detalles <ArrowRight size={16} /></span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </main>
-    </div>
-  );
+    );
 };
 
 export default Actividades;

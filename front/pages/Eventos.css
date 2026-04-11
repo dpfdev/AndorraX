@@ -1,134 +1,239 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
 
-.eventos-page {
-  background-color: #f8fafc;
-  font-family: 'Inter', sans-serif;
+/* --- SISTEMA DE VARIABLES ADAPTATIVO (Mantenido) --- */
+:root {
+  --bg-eventos: #f4f7f9;
+  --card-bg: #ffffff;
+  --border-cyber: rgba(0, 0, 0, 0.08);
+  --text-primary: #1a1a2e;
+  --text-secondary: #5a6b7d;
+  --accent-cyan: #0077ff;
+  
+  /* --- AJUSTE: Altura del Header a Pantalla Casi Completa --- */
+  --header-height: 85vh; /* Ocupa el 85% de la altura de la ventana */
+}
+
+body.dark-mode {
+  --bg-eventos: #0a0a0c;
+  --card-bg: #141418;
+  --border-cyber: rgba(255, 255, 255, 0.1);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent-cyan: #00f3ff;
+}
+
+.eventos-page-cyber {
+  background-color: var(--bg-eventos);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
   min-height: 100vh;
-  padding-bottom: 80px;
+  transition: background 0.4s ease;
+  padding-bottom: 100px;
 }
 
-/* --- HEADER CON MÁXIMA TRANSPARENCIA --- */
-.eventos-header {
-  /* Bajamos la opacidad del negro al 0.2 y 0.05 para que la foto se vea casi pura */
-  background: linear-gradient(
-      rgba(15, 23, 42, 0.25), 
-      rgba(15, 23, 42, 0.05)
-    ), 
-    url('/Apres.jpg');
-  
-  background-size: cover;
-  background-position: center 30%; /* Ajusta el encuadre de la foto */
-  background-attachment: fixed;    /* Efecto parallax para lucir más la imagen */
-  padding: 140px 0;                /* Más alto para que la foto ocupe más pantalla */
+/* =========================================================
+   --- HEADER OPTIMIZADO PARA MOSTRAR LA IMAGEN ---
+   ========================================================= */
+.eventos-header-cyber {
+  position: relative;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: white;
-  margin-bottom: 60px;
   
-  /* Sombra suave interna para que el texto respire */
-  box-shadow: inset 0 0 100px rgba(0,0,0,0.2); 
+  /* Imagen pura, fixed para efecto parallax */
+  background: url('/Apres.jpg') center/cover fixed no-repeat;
+  
+  margin-bottom: 80px;
+  overflow: hidden;
+  
+  /* Sombra interna muy suave solo en los bordes para dar profundidad */
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.3); 
 }
 
-.header-badge {
-  background: rgba(14, 165, 233, 0.7); /* Transparencia en el azul */
-  backdrop-filter: blur(8px);          /* Efecto cristal */
-  color: white;
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.75rem;
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  /* --- CAMBIO CRÍTICO: Máxima Transparencia --- */
+  /* Usamos un negro muy suave (0.15) solo para que el texto blanco sea legible,
+     pero sin ocultar la foto. Eliminamos el degradado a color de fondo. */
+  background: rgba(0, 0, 0, 0.15); 
+}
+
+.header-content { 
+  position: relative; 
+  z-index: 2; 
+  /* Un poco de padding abajo para subir el texto y lucir más la foto */
+  padding-bottom: 10vh; 
+}
+
+.header-meta {
   font-weight: 800;
-  letter-spacing: 2px;
-  display: inline-block;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.eventos-header h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--accent-cyan);
+  font-size: 0.8rem;
   margin-bottom: 15px;
-  /* Sombreado fuerte al texto para que sea legible sobre la foto clara */
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  letter-spacing: -1px;
+  /* Sombra al texto para legibilidad sobre fondo claro */
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
 }
 
-.eventos-header h1 span {
-  color: #38bdf8; /* Un azul un poco más brillante */
+.glitch-title {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: white;
+  /* Sombra fuerte al título para separarlo de la foto brillante */
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8); 
 }
 
-.eventos-header p {
+.x-neon {
+  color: var(--accent-cyan);
+  /* Resplandor neón mantenido */
+  text-shadow: 0 0 20px var(--accent-cyan), 0 0 40px var(--accent-cyan);
+}
+
+.header-subtitle {
   font-size: 1.2rem;
-  font-weight: 400;
+  font-weight: 700;
+  color: white;
   max-width: 600px;
   margin: 0 auto;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  /* Sombra fuerte al subtítulo */
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9); 
 }
 
-/* --- ESTILO DE TARJETAS (Glassmorphism sutil) --- */
-.evento-card {
-  background: white;
-  border-radius: 30px;
-  overflow: hidden;
-  text-decoration: none;
-  color: #1e293b;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #f1f5f9;
-}
-
-.evento-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
-}
-
-/* El resto de estilos (grid, date-badge, body) se mantienen igual que el anterior */
-.eventos-grid {
+/* --- RESTO DE ESTILOS (GRID Y TARJETAS) MANTENIDOS --- */
+.eventos-grid-cyber {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 40px;
 }
 
-.evento-image-wrapper {
+.evento-card-cyber {
+  background: var(--card-bg);
+  border: 1px solid var(--border-cyber);
+  border-radius: 24px;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.evento-card-cyber:hover {
+  transform: translateY(-12px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.evento-media {
   position: relative;
-  height: 220px;
+  height: 240px;
+  overflow: hidden;
 }
 
-.evento-image {
-  width: 100%;
-  height: 100%;
+.evento-img {
+  width: 100%; height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-.date-badge {
+.evento-card-cyber:hover .evento-img {
+  transform: scale(1.1);
+}
+
+.date-tag-cyber {
   position: absolute;
-  bottom: -20px;
-  left: 25px;
-  background: white;
-  width: 65px;
-  height: 75px;
+  top: 20px; right: 20px;
+  background: var(--accent-cyan);
+  color: #000;
+  padding: 10px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  min-width: 60px;
+  font-weight: 800;
   z-index: 2;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.date-badge .day { font-size: 1.5rem; font-weight: 800; color: #0f172a; line-height: 1; }
-.date-badge .month { font-size: 0.8rem; font-weight: 700; color: #0ea5e9; }
+.date-tag-cyber .day { font-size: 1.4rem; line-height: 1; }
+.date-tag-cyber .month { font-size: 0.7rem; }
 
-.evento-body { padding: 35px 25px 25px 25px; flex-grow: 1; display: flex; flex-direction: column; }
-.evento-category { display: flex; align-items: center; gap: 6px; color: #0ea5e9; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
-.evento-body h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; }
-.evento-details { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-.detail { display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.9rem; }
-.evento-excerpt { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
-.evento-footer { border-top: 1px solid #f1f5f9; padding-top: 15px; }
-.more-info { display: flex; align-items: center; gap: 6px; color: #0f172a; font-weight: 700; font-size: 0.9rem; }
+.card-glow-edge {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 4px;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-cyan);
+  opacity: 0;
+  transition: 0.3s;
+}
 
-@media (max-width: 640px) {
-  .eventos-header { padding: 80px 0; }
-  .eventos-header h1 { font-size: 2.2rem; }
+.evento-card-cyber:hover .card-glow-edge { opacity: 1; }
+
+.evento-info {
+  padding: 30px;
+  display: flex; flex-direction: column; flex-grow: 1;
+}
+
+.category-tag-cyber {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--accent-cyan);
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.evento-info h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.evento-meta-rows {
+  margin-bottom: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.meta-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.icon-cyan { color: var(--accent-cyan); }
+
+.evento-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+.evento-action {
+  border-top: 1px solid var(--border-cyber);
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+}
+
+.arrow-icon { transition: transform 0.3s ease; }
+.evento-card-cyber:hover .arrow-icon { transform: translateX(8px); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .eventos-grid-cyber { grid-template-columns: 1fr; }
+  .glitch-title { font-size: 2.5rem; }
+  .eventos-header-cyber { height: 60vh; } /* Ajuste de altura en móvil */
 }

@@ -1,4 +1,4 @@
-import { ArrowRight, Clock, Map, Music } from 'lucide-react';
+import { ArrowRight, Clock, MapPin, Music } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
@@ -7,7 +7,7 @@ import './Eventos.css';
 const Eventos = () => {
   const [eventos, setEventos] = useState([]);
   const URL_BASE = "http://localhost:3000";
-  const DEFAULT_IMAGE = "/hero.jpg"; // Tu imagen local segura
+  const DEFAULT_IMAGE = "/hero.jpg"; 
 
   useEffect(() => {
     const fetchEventos = async () => {
@@ -21,28 +21,28 @@ const Eventos = () => {
     fetchEventos();
   }, []);
 
-  // Detiene el bucle infinito si la imagen del servidor o de internet falla
   const handleImageError = (e) => {
     e.target.onerror = null; 
     e.target.src = DEFAULT_IMAGE;
   };
 
   return (
-    <div className="eventos-page">
-      <header className="eventos-header">
-        <div className="container">
-          <div className="header-badge">AGENDA 2026</div>
-          <h1>Après-Ski & <span>Eventos</span></h1>
-          <p>La mejor música, gastronomía y cultura en la nieve</p>
+    <div className="eventos-page-cyber">
+      <header className="eventos-header-cyber">
+        <div className="header-overlay"></div>
+        <div className="container header-content">
+          <div className="header-meta">/ AGENDA // 2026</div>
+          <h1 className="glitch-title">Après-Ski & <span className="x-neon">Eventos</span></h1>
+          <p className="header-subtitle">Sincroniza con la mejor música y cultura de Andorra</p>
         </div>
       </header>
 
       <main className="container">
-        <div className="eventos-grid">
+        <div className="eventos-grid-cyber">
           {eventos.map((ev) => (
-            <Link to={`/eventos/${ev.id_evento}`} key={ev.id_evento} className="evento-card">
-              <div className="evento-image-wrapper">
-                <div className="date-badge">
+            <Link to={`/eventos/${ev.id_evento}`} key={ev.id_evento} className="evento-card-cyber">
+              <div className="evento-media">
+                <div className="date-tag-cyber">
                   <span className="day">{new Date(ev.fecha_inicio).getDate()}</span>
                   <span className="month">
                     {new Date(ev.fecha_inicio).toLocaleString('es-ES', { month: 'short' }).toUpperCase()}
@@ -51,29 +51,34 @@ const Eventos = () => {
                 <img 
                   src={ev.foto_principal ? `${URL_BASE}${ev.foto_principal}` : DEFAULT_IMAGE} 
                   alt={ev.nombre} 
-                  className="evento-image"
+                  className="evento-img"
                   onError={handleImageError}
                 />
+                <div className="card-glow-edge"></div>
               </div>
               
-              <div className="evento-body">
-                <div className="evento-category">
-                  <Music size={14} /> <span>Cultura & Ocio</span>
+              <div className="evento-info">
+                <div className="category-tag-cyber">
+                  <Music size={14} className="icon-cyan" /> <span>CULTURA_DATA // 0{ev.id_evento}</span>
                 </div>
                 <h3>{ev.nombre}</h3>
-                <div className="evento-details">
-                  <div className="detail">
-                    <Map size={16} /> <span>{ev.lugar || 'Grandvalira'}</span>
+                
+                <div className="evento-meta-rows">
+                  <div className="meta-item">
+                    <MapPin size={16} className="icon-cyan" /> <span>{ev.lugar || 'ANDORRA_SECTOR'}</span>
                   </div>
-                  <div className="detail">
-                    <Clock size={16} /> <span>{new Date(ev.fecha_inicio).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                  <div className="meta-item">
+                    <Clock size={16} className="icon-cyan" /> <span>{new Date(ev.fecha_inicio).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} HRS</span>
                   </div>
                 </div>
-                <p className="evento-excerpt">
-                  {ev.descripcion ? ev.descripcion.substring(0, 90) + '...' : 'Únete a nosotros para una experiencia inolvidable en Andorra.'}
+
+                <p className="evento-description">
+                  {ev.descripcion ? ev.descripcion.substring(0, 95) + '...' : 'Iniciando transmisión de experiencia alpina en alta resolución.'}
                 </p>
-                <div className="evento-footer">
-                  <span className="more-info">Más información <ArrowRight size={16} /></span>
+
+                <div className="evento-action">
+                  <span>VER DETALLES</span>
+                  <ArrowRight size={18} className="arrow-icon" />
                 </div>
               </div>
             </Link>

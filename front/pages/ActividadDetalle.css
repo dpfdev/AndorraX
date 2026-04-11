@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+
+/* --- VARIABLES DE TEMA (MODO NIEVE / MODO NOCHE) --- */
+:root {
+    --bg-main: #f4f7f9;
+    --bg-card: rgba(255, 255, 255, 0.9);
+    --border-card: rgba(0, 0, 0, 0.08);
+    --text-primary: #1a1a2e;
+    --text-secondary: #5a6b7d;
+    --accent-color: #0077ff; 
+    --neon-purple: #8a00e6;
+    --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+body.dark-mode {
+    --bg-main: #0a0a0c;
+    --bg-card: rgba(20, 20, 25, 0.8);
+    --border-card: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --accent-color: #00f3ff;
+    --neon-purple: #bc13fe;
+    --shadow-card: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+/* --- LAYOUT GENERAL --- */
+.detail-page-cyber {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding-top: 120px; /* Espacio para el navbar fijo */
+    padding-bottom: 60px;
+    transition: background-color 0.5s ease;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.container-detail-cyber {
+    max-width: 1400px; /* Un poco más ancho para dar aire */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 50px;
+    padding: 0 30px;
+}
+
+/* --- BOTÓN VOLVER --- */
+.btn-back-cyber {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    transition: 0.3s;
+}
+
+.btn-back-cyber:hover {
+    transform: translateX(-5px);
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+/* --- CONTENEDOR DE IMAGEN (ADAPTATIVO Y COMPLETO) --- */
+.hero-frame-adaptive {
+    width: 100%;
+    /* Eliminamos height: 40vh para que la imagen mande */
+    background: #000; /* Fondo negro por si la imagen tiene transparencias */
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border-card);
+    box-shadow: var(--shadow-card);
+    line-height: 0; /* Elimina espacio extra inferior en modo light */
+}
+
+.img-cyber-full {
+    width: 100%;
+    height: auto; /* Permite que la altura se adapte proporcionalmente */
+    max-height: 70vh; /* Límite para que no sea ridículamente alta en fotos verticales */
+    object-fit: contain; /* AQUÍ: SE VE COMPLETA SIEMPRE */
+    display: block;
+}
+
+.frame-glow-bottom {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), var(--neon-purple));
+    box-shadow: 0 0 15px var(--accent-color);
+}
+
+/* --- SECCIÓN DE TEXTOS --- */
+.info-content-cyber {
+    margin-top: 40px;
+}
+
+.tag-id-cyan {
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.title-huge-cyber {
+    font-size: 3.8rem;
+    font-weight: 800;
+    margin: 10px 0 20px;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.loc-text-cyber {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.icon-cyan { color: var(--accent-color); }
+
+.desc-box-cyber {
+    margin-top: 40px;
+    padding: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+}
+
+.desc-header-cyber {
+    color: var(--neon-purple);
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.desc-box-cyber p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* --- SIDEBAR PANEL (FIXED) --- */
+.detail-sidebar-cyber {
+    position: relative;
+}
+
+.booking-card-cyber {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-color);
+    padding: 40px;
+    border-radius: 28px;
+    position: sticky;
+    top: 140px; /* Se queda fijo al hacer scroll */
+    box-shadow: 0 0 30px var(--shadow-card);
+}
+
+.price-header-cyber {
+    font-size: 2.8rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.price-header-cyber small {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.input-cyber-group {
+    margin-bottom: 20px;
+}
+
+.input-cyber-group label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.input-cyber-group input {
+    width: 100%;
+    padding: 14px;
+    background: rgba(128,128,128,0.08);
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.input-cyber-group input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.total-row-cyber {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-card);
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.total-price-cyan {
+    color: var(--accent-color);
+    font-size: 1.4rem;
+    text-shadow: 0 0 15px var(--accent-color);
+}
+
+.btn-submit-cyber {
+    width: 100%;
+    padding: 20px;
+    background: var(--accent-color);
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-submit-cyber:hover:not(.locked) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 243, 255, 0.3);
+}
+
+.btn-submit-cyber.locked {
+    background: #333;
+    color: #666;
+    border: 1px solid #444;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* LOADING STATE */
+.loading-wrapper-cyber {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-main);
+    color: var(--accent-color);
+    font-family: 'JetBrains Mono';
+    letter-spacing: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+    .container-detail-cyber { grid-template-columns: 1fr; }
+    .detail-sidebar-cyber .booking-card-cyber { position: relative; top: 0; margin-top: 40px; }
+    .title-huge-cyber { font-size: 2.8rem; }
+}
