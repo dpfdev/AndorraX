@@ -1,0 +1,149 @@
+/* --- VARIABLES TEMÁTICA HIELO --- */
+:root {
+    --bg-arctic: #010a10;
+    --ice-cyan: #a5f3fc;   /* Azul hielo suave */
+    --ice-glow: #22d3ee;   /* Brillo glaciar */
+    --snow-white: #f8fafc;
+}
+
+.auth-page-snow {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-arctic);
+    position: relative;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* --- TARJETA MINI --- */
+.auth-card-mini {
+    width: 100%;
+    max-width: 340px; /* Tamaño reducido */
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(165, 243, 252, 0.2);
+    border-top: 3px solid var(--ice-cyan);
+    padding: 25px;
+    z-index: 10;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+.snow-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.icon-freeze {
+    color: var(--ice-cyan);
+    filter: drop-shadow(0 0 5px var(--ice-glow));
+    margin-bottom: 5px;
+}
+
+.station-id {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--ice-glow);
+    letter-spacing: 2px;
+}
+
+.snow-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--snow-white);
+    font-size: 1.2rem;
+    margin-top: 5px;
+}
+
+/* --- FORMULARIO COMPACTO --- */
+.snow-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-snow-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-snow-group label {
+    font-size: 0.65rem;
+    color: var(--ice-cyan);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-snow-group input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    color: white;
+    font-size: 0.8rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-snow-group input:focus {
+    border-color: var(--ice-glow);
+    background: rgba(34, 211, 238, 0.05);
+}
+
+/* --- BOTÓN CONGELADO --- */
+.btn-freeze {
+    margin-top: 10px;
+    padding: 12px;
+    background: var(--ice-cyan);
+    color: #010a10;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.btn-freeze:hover {
+    background: var(--snow-white);
+    box-shadow: 0 0 15px var(--ice-glow);
+}
+
+.snow-footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.link-snow {
+    color: var(--ice-cyan);
+    text-decoration: none;
+    font-size: 0.65rem;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.link-snow:hover {
+    opacity: 1;
+    text-shadow: 0 0 5px var(--ice-glow);
+}
+
+/* --- ANIMACIÓN DE NIEVE --- */
+.snow-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity: 0.2;
+    pointer-events: none;
+    animation: fall 30s linear infinite;
+}
+
+@keyframes fall {
+    from { background-position: 0 0; }
+    to { background-position: 500px 1000px; }
+}

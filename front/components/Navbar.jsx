@@ -1,29 +1,31 @@
-import { Clock, LogIn, LogOut, Moon, Sun, User } from 'lucide-react';
+import { Clock, LogIn, LogOut, Moon, Sun, User, UserPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const location = useLocation(); // Para detectar cambios de ruta y refrescar el estado
     const [dateTime, setDateTime] = useState(new Date());
     const [isDark, setIsDark] = useState(true);
     
-    // Estados para usuario
+    // Estado del usuario
     const [user, setUser] = useState(null);
-    const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Reloj
+        // 1. Reloj en tiempo real
         const timer = setInterval(() => setDateTime(new Date()), 1000);
         
-        // Recuperar usuario del localStorage
+        // 2. Comprobar si hay usuario cada vez que cambiamos de página
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
+        } else {
+            setUser(null);
         }
 
         return () => clearInterval(timer);
-    }, [token]); // Se actualiza si el token cambia
+    }, [location]); // Se ejecuta cada vez que cambia la URL
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -51,7 +53,7 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                {/* NAVEGACIÓN */}
+                {/* NAVEGACIÓN CENTRAL */}
                 <nav className="nav-block-center">
                     <ul className="nav-menu-list">
                         <li><Link to="/" className="nav-link">/ INICIO</Link></li>
@@ -61,7 +63,7 @@ const Navbar = () => {
                     </ul>
                 </nav>
 
-                {/* STATUS BAR */}
+                {/* STATUS BAR (DERECHA) */}
                 <div className="nav-block-right">
                     <div className="system-status-pills">
                         
@@ -78,22 +80,30 @@ const Navbar = () => {
                             <Moon size={12} className="icon-moon-bg" />
                         </div>
 
-                        {/* LÓGICA DE USUARIO */}
+                        {/* --- LÓGICA CONDICIONAL DE USUARIO --- */}
                         {user ? (
-                            <>
+                            /* SI ESTÁ CONECTADO */
+                            <div className="auth-group">
                                 <div className="user-profile-tech-pill">
                                     <User size={14} className="icon-cyan" />
                                     <span className="user-name-mono">HOLA, {user.nombre?.toUpperCase()}</span>
                                 </div>
-                                <button onClick={handleLogout} className="pill-logout">
+                                <button onClick={handleLogout} className="pill-logout" title="Cerrar Sesión">
                                     <LogOut size={14} />
                                 </button>
-                            </>
+                            </div>
                         ) : (
-                            <Link to="/login" className="pill-login">
-                                <LogIn size={14} />
-                                <span>ACCEDER</span>
-                            </Link>
+                            /* SI NO ESTÁ CONECTADO */
+                            <div className="auth-group">
+                                <Link to="/login" className="pill-login">
+                                    <LogIn size={14} />
+                                    <span>LOGIN</span>
+                                </Link>
+                                <Link to="/registro" className="pill-register">
+                                    <UserPlus size={14} />
+                                    <span>REGISTRARSE</span>
+                                </Link>
+                            </div>
                         )}
 
                     </div>

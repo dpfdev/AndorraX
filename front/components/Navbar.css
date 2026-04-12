@@ -2,17 +2,17 @@
 :root {
     --bg-dark: #050505;
     --bg-light: #f5f5f7;
-    --accent: #00f3ff; /* Cian Neón */
-    --accent-secondary: #7000ff; /* Morado */
+    --accent: #00f3ff;           /* Cian Neón */
+    --accent-secondary: #bc13fe; /* Morado Neón */
     --text-dark: #ffffff;
     --text-light: #1d1d1f;
     --border-dark: rgba(0, 243, 255, 0.2);
     --border-light: rgba(0, 0, 0, 0.1);
     --glass-dark: rgba(255, 255, 255, 0.03);
-    --glass-light: rgba(0, 0, 0, 0.05);
+    --danger: #ff0055;
 }
 
-/* --- ESTRUCTURA BASE --- */
+/* --- ESTRUCTURA DEL HEADER --- */
 .main-navbar {
     position: fixed;
     top: 0;
@@ -22,16 +22,16 @@
     z-index: 1000;
     backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-dark);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s ease;
 }
 
 .main-navbar.dark {
-    background: rgba(5, 5, 5, 0.8);
+    background: rgba(5, 5, 5, 0.85);
     color: var(--text-dark);
 }
 
 .main-navbar.light {
-    background: rgba(245, 245, 247, 0.8);
+    background: rgba(245, 245, 247, 0.85);
     color: var(--text-light);
     border-bottom: 1px solid var(--border-light);
 }
@@ -41,12 +41,12 @@
     margin: 0 auto;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr; /* Logo | Menu | Status */
     align-items: center;
     padding: 0 30px;
 }
 
-/* --- BLOQUE IZQUIERDO: LOGO --- */
+/* --- LOGO --- */
 .nav-logo-link {
     text-decoration: none;
     color: inherit;
@@ -55,21 +55,20 @@
 .nav-logo-text {
     font-family: 'Orbitron', sans-serif;
     font-weight: 900;
-    letter-spacing: 4px;
-    font-size: 1.4rem;
+    letter-spacing: 3px;
+    font-size: 1.3rem;
 }
 
 .blue-x-glitch {
     color: var(--accent);
     text-shadow: 0 0 10px var(--accent);
-    animation: pulse 2s infinite;
 }
 
-/* --- BLOQUE CENTRAL: MENU --- */
+/* --- MENÚ CENTRAL --- */
 .nav-menu-list {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
     list-style: none;
 }
 
@@ -77,9 +76,8 @@
     text-decoration: none;
     color: inherit;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 1px;
     opacity: 0.7;
     transition: 0.3s;
 }
@@ -87,37 +85,46 @@
 .nav-link:hover {
     opacity: 1;
     color: var(--accent);
-    text-shadow: 0 0 8px var(--accent);
 }
 
-/* --- BLOQUE DERECHO: STATUS PILLS --- */
-.system-status-pills {
+/* --- BLOQUE DERECHO Y GRUPOS --- */
+.nav-block-right {
     display: flex;
     justify-content: flex-end;
+}
+
+.system-status-pills {
+    display: flex;
     align-items: center;
     gap: 12px;
 }
 
+.auth-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+    border-left: 1px solid var(--border-dark);
+    padding-left: 15px;
+}
+
+/* --- PILLS (Cápsulas de info) --- */
 .pill {
     background: var(--glass-dark);
     border: 1px solid var(--border-dark);
     padding: 6px 12px;
     border-radius: 4px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
-.icon-neon-accent {
-    color: var(--accent);
-}
-
-/* --- TEMA SWITCHER --- */
+/* --- SWITCHER TEMA --- */
 .theme-switcher-pill {
-    width: 50px;
-    height: 24px;
+    width: 44px;
+    height: 22px;
     background: #111;
     border: 1px solid var(--border-dark);
     border-radius: 20px;
@@ -130,28 +137,26 @@
 
 .switcher-handle {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: var(--accent);
     border-radius: 50%;
-    left: 4px;
+    left: 3px;
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 10px var(--accent);
+    box-shadow: 0 0 8px var(--accent);
 }
 
-.dark .switcher-handle { transform: translateX(24px); }
-.icon-sun-bg { color: #ffcc00; font-size: 10px; }
-.icon-moon-bg { color: #fff; font-size: 10px; }
+.dark .switcher-handle { transform: translateX(20px); }
 
-/* --- SECCIÓN USUARIO (AUTENTICACIÓN) --- */
+/* --- ESTADOS DE USUARIO (CONECTADO) --- */
 .user-profile-tech-pill {
     background: rgba(0, 243, 255, 0.05);
     border: 1px solid var(--accent);
-    padding: 6px 14px;
+    padding: 6px 12px;
     border-radius: 2px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     color: var(--accent);
 }
 
@@ -159,53 +164,68 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .pill-logout {
     background: rgba(255, 0, 85, 0.1);
-    border: 1px solid #ff0055;
-    color: #ff0055;
+    border: 1px solid var(--danger);
+    color: var(--danger);
     padding: 6px;
     border-radius: 2px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    transition: all 0.3s;
+    transition: 0.3s;
 }
 
 .pill-logout:hover {
-    background: #ff0055;
+    background: var(--danger);
     color: white;
-    box-shadow: 0 0 15px #ff0055;
+    box-shadow: 0 0 15px var(--danger);
 }
 
+/* --- BOTONES DE ACCESO (DESCONECTADO) --- */
 .pill-login {
     background: var(--accent);
-    color: #000;
+    color: #000 !important;
     text-decoration: none;
-    padding: 6px 16px;
+    padding: 6px 14px;
     border-radius: 2px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 900;
+    font-size: 0.7rem;
+    font-weight: 800;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     transition: 0.3s;
 }
 
 .pill-login:hover {
     background: #fff;
-    box-shadow: 0 0 20px #fff;
-    transform: translateY(-1px);
+    box-shadow: 0 0 15px #fff;
 }
 
-/* --- ANIMACIONES --- */
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+.pill-register {
+    background: transparent;
+    border: 1px solid var(--accent-secondary);
+    color: var(--accent-secondary) !important;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s;
+}
+
+.pill-register:hover {
+    background: var(--accent-secondary);
+    color: #fff !important;
+    box-shadow: 0 0 15px var(--accent-secondary);
 }
 
 /* --- RESPONSIVE --- */
@@ -214,6 +234,15 @@
         grid-template-columns: 1fr 1fr;
     }
     .nav-block-center, .hide-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .user-name-mono {
+        display: none;
+    }
+    .pill-register span {
         display: none;
     }
 }
