@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Footer from '../components/Footer'; // Importamos el nuevo componente
+import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import ActividadDetalle from '../pages/ActividadDetalle';
 import Actividades from '../pages/Actividades';
@@ -14,13 +15,30 @@ import Registro from '../pages/Registro';
 import './index.css';
 
 function App() {
+  // Estado para el tema: 'dark' por defecto (ciberpunk/ártico)
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+  // Aplicar el tema al cambiar el estado y guardarlo en localStorage
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <Router>
-      <div className="app-container" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        {/* El Navbar se mantiene fijo en la parte superior */}
-        <Navbar />
+      {/* La clase 'light-mode' se aplica al contenedor principal 
+          basándose en el estado. Esto activará las variables CSS 
+          que definimos en DetalleCyber.css 
+      */}
+      <div className={`app-container ${theme === 'light' ? 'light-mode' : ''}`} 
+           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        
+        {/* Pasamos toggleTheme y el tema actual al Navbar para que puedas poner un botón de cambio */}
+        <Navbar toggleTheme={toggleTheme} currentTheme={theme} />
 
-        {/* El contenedor principal crece para empujar el footer hacia abajo */}
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -44,7 +62,6 @@ function App() {
           </Routes>
         </main>
 
-        {/* El Footer se renderiza en todas las rutas al final del documento */}
         <Footer />
       </div>
     </Router>

@@ -1,107 +1,104 @@
-import { ArrowLeft, Calendar, MapPin, Ticket, Zap } from 'lucide-react';
+import 'leaflet/dist/leaflet.css';
+import { Award, Calendar, ChevronLeft, Clock, MapPin, Users, Zap } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { useNavigate, useParams } from 'react-router-dom';
+import CarruselManual from '../components/CarruselManual';
 import api from '../services/api';
-import './EventoDetalle.css';
+import './DetalleCyber.css';
 
 const EventoDetalle = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [evento, setEvento] = useState(null);
-    const [cantidad, setCantidad] = useState(1);
-    
-    const URL_BASE = "http://localhost:3000";
-    const DEFAULT_IMAGE = "/hero.jpg"; 
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [evento, setEvento] = useState(null);
+  const [cantidad, setCantidad] = useState(1);
+  const [total, setTotal] = useState(0);
 
-    useEffect(() => {
-        api.get(`/eventos/${id}`)
-            .then(res => {
-                const data = Array.isArray(res.data) ? res.data[0] : res.data;
-                setEvento(data);
-            })
-            .catch(err => console.error("Error cargando evento:", err));
-    }, [id]);
-
-    const handleReserva = async () => {
-        const token = localStorage.getItem('token');
-        if (!token) return navigate('/login');
-        try {
-            await api.post('/reservas/evento', {
-                id_evento: id, 
-                fecha: evento.fecha_inicio, 
-                entradas: cantidad,
-                precio_total: evento.precio * cantidad
-            });
-            alert("¡Reserva confirmada!");
-            navigate('/mis-reservas');
-        } catch (err) { alert("Error al procesar la reserva"); }
+  useEffect(() => {
+    const fetchEvento = async () => {
+      try {
+        const res = await api.get(`/eventos/${id}`);
+        const data = Array.isArray(res.data) ? res.data[0] : res.data;
+        setEvento(data);
+      } catch (err) { console.error("Error cargando evento", err); }
     };
+    fetchEvento();
+  }, [id]);
 
-    if (!evento) return <div className="loading-screen-cyber"><div className="loader-text">/ SYNCING_DATA...</div></div>;
+  useEffect(() => {
+    if (evento) setTotal(cantidad * evento.precio_entrada);
+  }, [cantidad, evento]);
 
-    const imgPath = evento.foto_principal ? `${URL_BASE}${evento.foto_principal}` : DEFAULT_IMAGE;
+  if (!evento) return <div className="loading-screen-cyber"><span>Sincronizando Nodo Evento...</span></div>;
 
-    return (
-        <div className="evento-detalle-page-fixed">
-            <div className="container container-grid-cyber">
-                
-                <section className="evento-main-content">
-                    <button className="btn-back-minimal" onClick={() => navigate(-1)}>
-                        <ArrowLeft size={16} /> VOLVER_A_LA_AGENDA
-                    </button>
+  const position = [evento.latitud || 42.5063, evento.longitud || 1.5218];
 
-                    {/* CONTENEDOR CON EFECTO BLUR PARA VER LA IMAGEN COMPLETA */}
-                    <div className="hero-frame-blur">
-                        {/* Imagen de fondo desenfocada para rellenar huecos */}
-                        <div className="blur-bg" style={{ backgroundImage: `url(${imgPath})` }}></div>
-                        
-                        {/* Imagen principal completa */}
-                        <img 
-                            src={imgPath} 
-                            className="img-main-complete" 
-                            alt={evento.nombre}
-                            onError={(e) => { e.target.onerror = null; e.target.src = DEFAULT_IMAGE; }}
-                        />
-                    </div>
+  return (
+    <div className="auth-page-snow"> {/* Añadir 'light-mode' aquí para probar el modo claro */}
+      <div className="container-grid-cyber">
+        
+        <section className="main-content-flow">
+          <button className="btn-back-minimal" onClick={() => navigate(-1)}><ChevronLeft size={16}/> VOLVER</button>
+          
+          <div className="hero-frame-carrusel-compact">
+            <CarruselManual imagenes={evento.imagenes || [evento.foto_principal]} />
+          </div>
 
-                    <div className="evento-texts-compact">
-                        <div className="tag-id-cyan">REF_ID // 0{evento.id_evento}</div>
-                        <h1 className="title-huge-compact">{evento.nombre}</h1>
-                        
-                        <div className="evento-meta-compact">
-                            <span><Calendar size={16} className="icon-cyan"/> {new Date(evento.fecha_inicio).toLocaleDateString()}</span>
-                            <span><MapPin size={16} className="icon-cyan"/> {evento.ciudad?.toUpperCase()}</span>
-                        </div>
-                        
-                        <div className="evento-desc-card-minimal">
-                            <h3><Zap size={14} /> DESCRIPCIÓN_SISTEMA</h3>
-                            <p>{evento.descripcion}</p>
-                        </div>
-                    </div>
-                </section>
-
-                <aside className="evento-sidebar">
-                    <div className="booking-widget-cyber">
-                        <div className="price-header-compact">
-                            <span className="amount">{evento.precio}€</span>
-                            <span className="label">/ TICKET</span>
-                        </div>
-                        <div className="input-cyber-group">
-                            <label><Ticket size={12} /> ENTRADAS</label>
-                            <input type="number" min="1" value={cantidad} onChange={(e)=>setCantidad(Number(e.target.value))} />
-                        </div>
-                        <div className="total-row-cyber">
-                            <span>TOTAL</span>
-                            <span className="total-price-neon">{(evento.precio * cantidad).toFixed(2)}€</span>
-                        </div>
-                        <button className="btn-reserve-neon-boost" onClick={handleReserva}>CONFIRMAR_RESERVA</button>
-                        <p className="no-scroll-hint">Trasmisión de datos cifrada</p>
-                    </div>
-                </aside>
-
+          <div className="info-body-compact">
+            <h1>{evento.nombre}</h1>
+            <div style={{display: 'flex', gap: '20px'}}>
+                <p className="location-tag-cyber"><MapPin size={14}/> {evento.lugar}</p>
+                <p className="location-tag-cyber"><Clock size={14}/> {evento.hora || "20:00"} HRS</p>
+                <p className="location-tag-cyber"><Calendar size={14}/> {new Date(evento.fecha).toLocaleDateString()}</p>
             </div>
-        </div>
-    );
+            <div className="hotel-desc-card-minimal">
+              <h3><Zap size={14}/> DESCRIPCIÓN DEL EVENTO</h3>
+              <p>{evento.descripcion}</p>
+            </div>
+          </div>
+        </section>
+
+        <aside className="hotel-sidebar">
+          <div className="booking-widget-cyber">
+            <div className="price-header-compact">
+              <span className="label">TICKET / ENTRADA</span>
+              <div className="total-price-neon">{evento.precio_entrada}€</div>
+            </div>
+            
+            <div className="cyber-input-group">
+              <label><Users size={12}/> CANTIDAD</label>
+              <input 
+                type="number" 
+                min="1" 
+                value={cantidad} 
+                onChange={(e) => setCantidad(parseInt(e.target.value))} 
+              />
+            </div>
+
+            <div className="total-display-cyber">
+              <span>TOTAL</span>
+              <span className="total-amount-neon">{total.toFixed(2)}€</span>
+            </div>
+
+            <button className="btn-reserve-neon-boost">
+              <Award size={18} />
+              <span>ADQUIRIR ENTRADAS</span>
+            </button>
+          </div>
+
+          <div className="map-sidebar-card">
+            <div className="map-frame-compact">
+              <MapContainer center={position} zoom={15} style={{height: "100%", width: "100%"}}>
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <Marker position={position}><Popup>{evento.nombre}</Popup></Marker>
+              </MapContainer>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  );
 };
 
 export default EventoDetalle;

@@ -1,0 +1,113 @@
+/* --- VARIABLES DINÁMICAS --- */
+:root {
+    /* Modo Oscuro (Default) */
+    --bg-arctic: #010a10;
+    --card-bg: rgba(15, 23, 42, 0.9);
+    --ice-cyan: #a5f3fc;
+    --ice-glow: #22d3ee;
+    --snow-white: #f8fafc;
+    --text-main: #f8fafc;
+    --text-dim: rgba(200, 230, 255, 0.6);
+    --border-color: rgba(165, 243, 252, 0.2);
+    --input-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* --- MODO CLARO --- */
+.light-mode {
+    --bg-arctic: #f0f9ff;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --ice-cyan: #0891b2; /* Azul más oscuro para contraste */
+    --ice-glow: #0e7490;
+    --snow-white: #0f172a;
+    --text-main: #1e293b;
+    --text-dim: #475569;
+    --border-color: rgba(8, 145, 178, 0.2);
+    --input-bg: rgba(15, 23, 42, 0.05);
+}
+
+.auth-page-snow {
+    min-height: 100vh;
+    background: var(--bg-arctic);
+    color: var(--text-main);
+    transition: background 0.3s ease, color 0.3s ease;
+    padding-bottom: 50px;
+}
+
+.container-grid-cyber {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 30px;
+}
+
+/* --- HERO & INFO --- */
+.hero-frame-carrusel-compact {
+    height: 380px;
+    border: 1px solid var(--border-color);
+    background: #000;
+    overflow: hidden;
+}
+
+.info-body-compact h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    color: var(--ice-cyan);
+}
+
+.hotel-desc-card-minimal {
+    background: var(--card-bg);
+    border-left: 3px solid var(--ice-cyan);
+    padding: 20px;
+    margin-top: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- SIDEBAR & MAPA --- */
+.booking-widget-cyber {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.map-sidebar-card {
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    padding: 5px;
+    height: 250px;
+}
+
+.map-frame-compact { height: 100%; width: 100%; }
+
+/* --- INPUTS Y BOTONES --- */
+.cyber-input-group input {
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px;
+    width: 100%;
+}
+
+.btn-reserve-neon-boost {
+    width: 100%;
+    padding: 15px;
+    background: var(--ice-cyan);
+    color: var(--bg-arctic); /* Color de fondo del tema opuesto */
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.total-amount-neon {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: var(--ice-cyan);
+}
