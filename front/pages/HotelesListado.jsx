@@ -62,7 +62,8 @@ const HotelesListado = () => {
                     {hotelesFiltrados.length > 0 ? (
                         hotelesFiltrados.map((hotel) => (
                             <Link 
-                                to={`/hotel/${hotel.id_hotel}`} 
+                                /* CORRECCIÓN AQUÍ: la ruta debe ser /hoteles/ coincidiendo con App.jsx */
+                                to={`/hoteles/${hotel.id_hotel}`} 
                                 key={hotel.id_hotel} 
                                 className="hotel-card-cyber"
                             >

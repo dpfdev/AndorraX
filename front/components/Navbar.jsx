@@ -1,24 +1,41 @@
+import { Clock, LogIn, LogOut, Moon, Sun, User } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-    // 1. Estado para el Reloj
+    const navigate = useNavigate();
     const [dateTime, setDateTime] = useState(new Date());
-    // 2. Estado para el Tema (Dark por defecto)
     const [isDark, setIsDark] = useState(true);
+    
+    // Estados para usuario
+    const [user, setUser] = useState(null);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
-        // Actualizar reloj cada segundo
+        // Reloj
         const timer = setInterval(() => setDateTime(new Date()), 1000);
-        return () => clearInterval(timer);
-    }, []);
+        
+        // Recuperar usuario del localStorage
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
 
-    // 3. Función para cambiar tema
+        return () => clearInterval(timer);
+    }, [token]); // Se actualiza si el token cambia
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/login');
+    };
+
     const toggleTheme = () => {
-        setIsDark(!isDark);
-        // Cambiamos la clase en el body para que el CSS global reaccione
-        document.body.className = isDark ? 'light-mode' : 'dark-mode';
+        const newTheme = !isDark;
+        setIsDark(newTheme);
+        document.body.className = newTheme ? 'dark-mode' : 'light-mode';
     };
 
     return (
@@ -34,7 +51,7 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                {/* NAVEGACIÓN (Centro) */}
+                {/* NAVEGACIÓN */}
                 <nav className="nav-block-center">
                     <ul className="nav-menu-list">
                         <li><Link to="/" className="nav-link">/ INICIO</Link></li>
@@ -44,35 +61,40 @@ const Navbar = () => {
                     </ul>
                 </nav>
 
-                {/* STATUS BAR (Derecha) */}
+                {/* STATUS BAR */}
                 <div className="nav-block-right">
                     <div className="system-status-pills">
                         
-                        {/* Reloj y Clima (Pills Tech) */}
+                        {/* Reloj */}
                         <div className="pill hide-mobile">
-                            <span className="icon-neon-accent">󱑂</span>
-                            {dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                        </div>
-                        
-                        <div className="pill hide-mobile">
-                            <span className="icon-neon-accent"></span>
-                            -2°C
+                            <Clock size={14} className="icon-neon-accent" />
+                            <span>{dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                         </div>
 
-                        {/* TOGGLE DE TEMA ACTIVO */}
-                        <div 
-                            className={`theme-switcher-pill ${isDark ? 'dark' : 'light'}`} 
-                            onClick={toggleTheme}
-                        >
+                        {/* Switcher de Tema */}
+                        <div className={`theme-switcher-pill ${isDark ? 'dark' : 'light'}`} onClick={toggleTheme}>
                             <div className="switcher-handle"></div>
-                            <span className="icon-sun-bg">☀</span>
-                            <span className="icon-moon-bg">🌙</span>
+                            <Sun size={12} className="icon-sun-bg" />
+                            <Moon size={12} className="icon-moon-bg" />
                         </div>
 
-                        {/* USUARIO */}
-                        <div className="user-profile-tech-pill">
-                            <span className="user-name-mono">USER_01</span>
-                        </div>
+                        {/* LÓGICA DE USUARIO */}
+                        {user ? (
+                            <>
+                                <div className="user-profile-tech-pill">
+                                    <User size={14} className="icon-cyan" />
+                                    <span className="user-name-mono">HOLA, {user.nombre?.toUpperCase()}</span>
+                                </div>
+                                <button onClick={handleLogout} className="pill-logout">
+                                    <LogOut size={14} />
+                                </button>
+                            </>
+                        ) : (
+                            <Link to="/login" className="pill-login">
+                                <LogIn size={14} />
+                                <span>ACCEDER</span>
+                            </Link>
+                        )}
 
                     </div>
                 </div>
