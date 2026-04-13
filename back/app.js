@@ -20,20 +20,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // --- Middlewares ---
 
-// Configuración de CORS única
+// Configuración de CORS corregida
 app.use(cors({
-    origin: ["andorra-x-omega.vercel.app","http://localhost:5173"],    
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ["https://andorra-x-omega.vercel.app", "http://localhost:5173"],    
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Añadido OPTIONS
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 
 app.use(express.json());
 
-// Archivos estáticos (OJO con esto en Vercel, lee la nota abajo)
+// Archivos estáticos
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // --- Registro de Rutas ---
+app.use('/api/auth', authRoutes); // /api/auth/registrar
 app.use('/api/hoteles', hotelesRoutes);
 app.use('/api/actividades', actividadesRoutes);
 app.use('/api/eventos', eventosRoutes);
@@ -41,13 +42,10 @@ app.use('/api/categorias', categoriasRoutes);
 app.use('/api/favoritos', favoritosRoutes);
 app.use('/api/resenas', resenasRoutes);
 app.use('/api/reservas', reservasRoutes);
-app.use('/api/auth', authRoutes);
 app.use('/api/imagenes', imagenesRoutes);
 
-// Middleware de error
 app.use(errorHandler);
 
-// Solo para desarrollo local
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
@@ -55,4 +53,4 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
-export default app; // <--- OBLIGATORIO PARA VERCEL
+export default app;

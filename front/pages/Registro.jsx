@@ -15,11 +15,15 @@ const Registro = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/auth/register', formData);
+            // RUTA CORREGIDA: Debe coincidir con el router del backend (/api/auth/registrar)
+            await api.post('/auth/registrar', formData);
+            
             alert("NODO_CREADO: Identidad registrada con éxito.");
             navigate('/login');
         } catch (err) {
-            alert("ERROR_DE_SISTEMA: No se pudo completar el registro.");
+            console.error("Error de Registro:", err.response?.data);
+            const msg = err.response?.data?.error || "No se pudo completar el registro.";
+            alert(`ERROR_DE_SISTEMA: ${msg}`);
         }
     };
 
@@ -38,6 +42,7 @@ const Registro = () => {
                         <input 
                             type="text" 
                             placeholder="John Doe" 
+                            value={formData.nombre}
                             onChange={(e) => setFormData({...formData, nombre: e.target.value})}
                             required 
                         />
@@ -48,6 +53,7 @@ const Registro = () => {
                         <input 
                             type="email" 
                             placeholder="user@arctic.com" 
+                            value={formData.email}
                             onChange={(e) => setFormData({...formData, email: e.target.value})}
                             required 
                         />
@@ -58,6 +64,7 @@ const Registro = () => {
                         <input 
                             type="password" 
                             placeholder="••••••••" 
+                            value={formData.password}
                             onChange={(e) => setFormData({...formData, password: e.target.value})}
                             required 
                         />
