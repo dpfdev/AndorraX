@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import ActividadDetalle from '../pages/ActividadDetalle';
 import Actividades from '../pages/Actividades';
 import AndorraLogin from '../pages/AndorraLogin';
+import ConfirmarCuenta from '../pages/ConfirmarCuenta'; // El componente que creamos antes
 import EventoDetalle from '../pages/EventoDetalle';
 import Eventos from '../pages/Eventos';
 import Home from '../pages/Home';
@@ -59,6 +60,7 @@ function App() {
             <Route path="/mis-reservas" element={<MisReservas />} />
             <Route path="/login" element={<AndorraLogin />} />
             <Route path="/registro" element={<Registro />} />
+            <Route path="/confirmar/:token" element={<ConfirmarCuenta />} />
           </Routes>
         </main>
 

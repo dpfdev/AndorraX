@@ -1,7 +1,7 @@
 import { Activity, Clock, MapPin, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
+import api from '../src/services/api';
 import './HotelesListado.css'; // Reutilizamos el CSS de Hoteles
 
 const Actividades = () => {

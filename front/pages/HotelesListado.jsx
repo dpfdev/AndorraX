@@ -1,7 +1,7 @@
 import { Building2, MapPin, Search, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
+import api from '../src/services/api';
 import './HotelesListado.css';
 
 const HotelesListado = () => {

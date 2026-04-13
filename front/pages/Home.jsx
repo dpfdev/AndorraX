@@ -3,7 +3,7 @@ import { ArrowRight, Calendar, Map } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HotelCard from '../components/HotelCard';
-import api from '../services/api';
+import api from '../src/services/api';
 import './Home.css';
 
 const Home = () => {

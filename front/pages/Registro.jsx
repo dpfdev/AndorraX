@@ -1,7 +1,7 @@
 import { Lock, Mail, Snowflake, User, UserPlus } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../services/api';
+import api from '../src/services/api';
 import './Registro.css';
 
 const Registro = () => {

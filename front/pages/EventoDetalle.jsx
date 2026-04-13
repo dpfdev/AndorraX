@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { useNavigate, useParams } from 'react-router-dom';
 import CarruselManual from '../components/CarruselManual';
-import api from '../services/api';
+import api from '../src/services/api';
 import './DetalleCyber.css';
 
 const EventoDetalle = () => {

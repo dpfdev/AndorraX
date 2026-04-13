@@ -1,4 +1,5 @@
 import cors from 'cors';
+import 'dotenv/config'; // O dotenv.config();
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
