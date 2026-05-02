@@ -1,225 +1,218 @@
-/* --- CONTENEDOR PRINCIPAL --- */
-.reservas-page {
-    background-color: #020617; /* Fondo ultra oscuro */
-    min-height: 100vh;
-    padding: 120px 20px 60px; /* Espacio para el Navbar fijo */
-    font-family: 'Inter', sans-serif;
+:root {
+    --primary: #2563eb;
+    --danger: #dc2626;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --bg-gray: #f8fafc;
+    --white: #ffffff;
 }
 
 .reservas-container {
-    max-width: 950px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 40px 20px;
+    background-color: var(--bg-gray);
+    min-height: 100vh;
 }
 
-.reservas-header {
-    margin-bottom: 40px;
-}
-
-.reservas-header h1 {
-    color: white;
-    font-size: 2.8rem;
+.reservas-header-v2 h1 {
+    font-size: 2.2rem;
     font-weight: 800;
-    margin-bottom: 10px;
+    color: var(--text-dark);
+    margin-bottom: 30px;
 }
 
-.reservas-header p {
-    color: #64748b;
-    font-size: 1.1rem;
-}
-
-/* --- GRID DE TARJETAS --- */
-.reservas-grid {
+/* Filtros */
+.filter-nav {
     display: flex;
-    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.filter-tab {
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: 1px solid #e2e8f0;
+    background: var(--white);
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-tab.active {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Grid de Reservas */
+.reservas-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 25px;
 }
 
-/* --- DISEÑO DE LA TARJETA --- */
-.reserva-card {
-    background: #0f172a;
-    border-radius: 30px; /* Bordes muy redondeados estilo AndorraX */
-    display: flex;
+.reserva-card-modern {
+    background: var(--white);
+    border-radius: 20px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-.reserva-card:hover {
+.reserva-card-modern:hover {
     transform: translateY(-5px);
-    border-color: rgba(59, 130, 246, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* --- IMAGEN IZQUIERDA --- */
-.reserva-img-container {
-    width: 280px;
+.reserva-image-wrapper {
     position: relative;
-    flex-shrink: 0;
+    height: 200px;
 }
 
-.reserva-img-container img {
+.reserva-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.category-tag {
+.price-tag {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(8px);
-    color: white;
-    padding: 5px 14px;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 14px;
     border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* --- INFORMACIÓN CENTRAL --- */
-.reserva-details {
-    flex: 1;
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.reserva-main h3 {
-    color: white;
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin: 10px 0 15px 0;
-}
-
-/* Labels de Estado */
-.status-label {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 10px;
-    font-size: 0.7rem;
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: var(--primary);
+    backdrop-filter: blur(4px);
 }
 
-.status-label.confirmada {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.2);
+.reserva-content {
+    padding: 24px;
 }
 
-.status-label.pendiente {
-    background: rgba(234, 179, 8, 0.15);
-    color: #facc15;
-    border: 1px solid rgba(234, 179, 8, 0.2);
+.reserva-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: var(--text-dark);
 }
 
-/* Iconos (Calendario y Mapa) */
-.reserva-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.icon-text {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #94a3b8;
-    font-size: 0.95rem;
-}
-
-.icon-text span {
-    color: #cbd5e1;
-}
-
-/* --- SECCIÓN DERECHA (PRECIO Y BOTÓN) --- */
 .reserva-footer {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    padding-left: 35px;
-    min-width: 200px;
+    gap: 12px;
+    margin-top: 24px;
 }
 
-.price-info {
-    text-align: right;
-}
-
-.price-info small {
-    display: block;
-    color: #64748b;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-}
-
-.price-amount {
-    color: white;
-    font-size: 2rem;
-    font-weight: 900;
-}
-
-/* Botón Ver Comprobante */
-.btn-ver-detalles {
-    background: #3b82f6;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 16px;
+.btn-secondary, .btn-danger-outline {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
     font-weight: 700;
-    font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-secondary {
+    background: #eff6ff;
+    color: var(--primary);
+}
+
+.btn-danger-outline {
+    background: transparent;
+    border-color: #fee2e2;
+    color: var(--danger);
+}
+
+.btn-danger-outline:hover {
+    background: var(--danger);
+    color: white;
+}
+
+/* TICKET MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.8);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000;
+}
+
+.ticket-modal {
+    background: white;
+    width: 90%; max-width: 420px;
+    border-radius: 30px;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+.ticket-header {
+    background: var(--primary);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.ticket-body {
+    padding: 30px;
+}
+
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.ticket-info-grid label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    display: block;
+}
+
+.ticket-info-grid p {
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.ticket-divider {
+    border-top: 2px dashed #cbd5e1;
+    margin: 25px 0;
+    position: relative;
+}
+
+.ticket-divider::before, .ticket-divider::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 50%;
+    top: -10px;
+}
+
+.ticket-divider::before { left: -40px; }
+.ticket-divider::after { right: -40px; }
+
+.btn-print {
     width: 100%;
+    padding: 18px;
+    border: none;
+    background: #f1f5f9;
+    color: var(--primary);
+    font-weight: 800;
+    cursor: pointer;
 }
 
-.btn-ver-detalles:hover {
-    background: #2563eb;
-    transform: scale(1.03);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
-}
-
-/* --- RESPONSIVE (MÓVILES) --- */
-@media (max-width: 850px) {
-    .reserva-card {
-        flex-direction: column;
-    }
-
-    .reserva-img-container {
-        width: 100%;
-        height: 200px;
-    }
-
-    .reserva-details {
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    .reserva-footer {
-        border-left: none;
-        padding-left: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        padding-top: 20px;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .price-info {
-        text-align: left;
-    }
-
-    .btn-ver-detalles {
-        width: auto;
-    }
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }

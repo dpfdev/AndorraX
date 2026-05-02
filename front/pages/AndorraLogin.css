@@ -1,149 +1,165 @@
-/* --- VARIABLES TEMÁTICA HIELO --- */
-:root {
-    --bg-arctic: #010a10;
-    --ice-cyan: #a5f3fc;   /* Azul hielo suave */
-    --ice-glow: #22d3ee;   /* Brillo glaciar */
-    --snow-white: #f8fafc;
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.login-container {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0b2b3d, #0a1f2c);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
-.auth-page-snow {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-arctic);
-    position: relative;
-    overflow: hidden;
-    font-family: 'JetBrains Mono', monospace;
+.login-card {
+  max-width: 1000px;
+  width: 100%;
+  max-height: 650px;
+  background: #ffffff;
+  border-radius: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* --- TARJETA MINI --- */
-.auth-card-mini {
-    width: 100%;
-    max-width: 340px; /* Tamaño reducido */
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(165, 243, 252, 0.2);
-    border-top: 3px solid var(--ice-cyan);
-    padding: 25px;
-    z-index: 10;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
+/* Panel Izquierdo */
+.brand-panel {
+  flex: 1.1;
+  background-size: cover;
+  background-position: center;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: white;
 }
 
-.snow-header {
-    text-align: center;
-    margin-bottom: 20px;
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
 }
 
-.icon-freeze {
-    color: var(--ice-cyan);
-    filter: drop-shadow(0 0 5px var(--ice-glow));
-    margin-bottom: 5px;
+.logo-icon {
+  background: rgba(120, 180, 220, 0.3);
+  backdrop-filter: blur(8px);
+  width: 45px; height: 45px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.station-id {
-    display: block;
-    font-size: 0.6rem;
-    color: var(--ice-glow);
-    letter-spacing: 2px;
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 2rem;
 }
 
-.snow-header h1 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--snow-white);
-    font-size: 1.2rem;
-    margin-top: 5px;
+.brand-highlight {
+  color: #7fc9ff;
 }
 
-/* --- FORMULARIO COMPACTO --- */
-.snow-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.feature-list {
+  list-style: none;
 }
 
-.input-snow-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  width: fit-content;
 }
 
-.input-snow-group label {
-    font-size: 0.65rem;
-    color: var(--ice-cyan);
-    display: flex;
-    align-items: center;
-    gap: 5px;
+.testimonial {
+  margin-top: auto;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
 }
 
-.input-snow-group input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    color: white;
-    font-size: 0.8rem;
-    outline: none;
-    transition: 0.3s;
+.author { display: flex; align-items: center; gap: 0.8rem; margin-top: 0.5rem; }
+.author-img { width: 35px; height: 35px; border-radius: 50%; background-size: cover; border: 2px solid #7fc9ff; }
+
+/* Panel Derecho */
+.form-panel {
+  flex: 1;
+  padding: 3rem;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.input-snow-group input:focus {
-    border-color: var(--ice-glow);
-    background: rgba(34, 211, 238, 0.05);
+.form-header h2 { font-size: 1.8rem; color: #0f172a; }
+.form-header p { color: #64748b; margin-bottom: 2rem; font-size: 0.9rem; }
+
+.error-message-box {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 0.8rem;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  border: 1px solid #fecaca;
 }
 
-/* --- BOTÓN CONGELADO --- */
-.btn-freeze {
-    margin-top: 10px;
-    padding: 12px;
-    background: var(--ice-cyan);
-    color: #010a10;
-    border: none;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 800;
-    font-size: 0.75rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: 0.3s;
+.input-group { margin-bottom: 1.2rem; position: relative; }
+.input-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.4rem; color: #475569; }
+
+.input-icon { position: absolute; left: 1rem; bottom: 0.9rem; color: #94a3b8; }
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.8rem;
+  transition: 0.3s;
 }
 
-.btn-freeze:hover {
-    background: var(--snow-white);
-    box-shadow: 0 0 15px var(--ice-glow);
+.input-group input:focus { outline: none; border-color: #3b82f6; }
+
+.forgot-row { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 1.5rem; }
+.forgot-link { color: #3b82f6; text-decoration: none; font-weight: 600; }
+
+.btn-login {
+  width: 100%;
+  padding: 1rem;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 1px;
 }
 
-.snow-footer {
-    margin-top: 20px;
-    text-align: center;
-}
+.btn-login:hover { background: #1e293b; transform: translateY(-2px); }
 
-.link-snow {
-    color: var(--ice-cyan);
-    text-decoration: none;
-    font-size: 0.65rem;
-    opacity: 0.7;
-    transition: 0.3s;
-}
+.alternative-login { text-align: center; margin: 1.5rem 0; font-size: 0.8rem; color: #94a3b8; }
+.social-icons { display: flex; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
+.social-icons a { width: 40px; height: 40px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #0f172a; }
 
-.link-snow:hover {
-    opacity: 1;
-    text-shadow: 0 0 5px var(--ice-glow);
-}
+.signup-prompt { text-align: center; font-size: 0.85rem; }
+.signup-prompt a { color: #3b82f6; font-weight: 600; text-decoration: none; margin-left: 0.3rem; }
 
-/* --- ANIMACIÓN DE NIEVE --- */
-.snow-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png');
-    opacity: 0.2;
-    pointer-events: none;
-    animation: fall 30s linear infinite;
-}
+.btn-back { margin-top: 1.5rem; background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; }
 
-@keyframes fall {
-    from { background-position: 0 0; }
-    to { background-position: 500px 1000px; }
+@media (max-width: 850px) {
+  .login-card { flex-direction: column; max-height: none; }
+  .brand-panel { display: none; }
 }

@@ -1,46 +1,62 @@
 import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+// Componentes Globales
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+
+// Páginas
 import ActividadDetalle from '../pages/ActividadDetalle';
 import Actividades from '../pages/Actividades';
 import AndorraLogin from '../pages/AndorraLogin';
-import ConfirmarCuenta from '../pages/ConfirmarCuenta'; // El componente que creamos antes
 import EventoDetalle from '../pages/EventoDetalle';
-import Eventos from '../pages/Eventos';
+import Eventos from '../pages/Eventos'; // Asegúrate de tener esta página creada
 import Home from '../pages/Home';
 import HotelDetalle from '../pages/HotelDetalle';
 import HotelesListado from '../pages/HotelesListado';
 import MisReservas from '../pages/MisReservas';
-import Registro from '../pages/Registro';
+
+// Estilos globales
 import './index.css';
 
 function App() {
-  // Estado para el tema: 'dark' por defecto (ciberpunk/ártico)
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  // 1. LÓGICA DE TEMA: Iniciamos en 'light' por defecto
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light';
+  });
 
-  // Aplicar el tema al cambiar el estado y guardarlo en localStorage
   useEffect(() => {
+    const root = window.document.documentElement;
+
+    // 2. Aplicamos/Quitamos la clase 'dark' al HTML para que afecte a TODA la app
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+
+    // Guardamos la preferencia
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // Función para alternar entre temas
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   return (
     <Router>
-      {/* La clase 'light-mode' se aplica al contenedor principal 
-          basándose en el estado. Esto activará las variables CSS 
-          que definimos en DetalleCyber.css 
-      */}
-      <div className={`app-container ${theme === 'light' ? 'light-mode' : ''}`} 
-           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        
-        {/* Pasamos toggleTheme y el tema actual al Navbar para que puedas poner un botón de cambio */}
+      {/* Notificaciones globales */}
+      <Toaster position="bottom-right" reverseOrder={false} />
+
+      <div className="app-wrapper">
+        {/* Pasamos el tema y la función a la Navbar para el botón del sol/luna */}
         <Navbar toggleTheme={toggleTheme} currentTheme={theme} />
 
-        <main style={{ flex: 1 }}>
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             
@@ -52,15 +68,13 @@ function App() {
             <Route path="/actividades" element={<Actividades />} />
             <Route path="/actividades/:id" element={<ActividadDetalle />} />
             
-            {/* Rutas de Eventos */}
+            {/* Ruta de Eventos (A donde redirige el botón de MisReservas) */}
             <Route path="/eventos" element={<Eventos />} />
-            <Route path="/eventos/:id" element={<EventoDetalle />} />
+            <Route path="/eventos/:id" element={<EventoDetalle/>}/>
             
-            {/* Rutas de Usuario */}
+            {/* Gestión de Reservas y Usuario */}
             <Route path="/mis-reservas" element={<MisReservas />} />
             <Route path="/login" element={<AndorraLogin />} />
-            <Route path="/registro" element={<Registro />} />
-            <Route path="/confirmar/:token" element={<ConfirmarCuenta />} />
           </Routes>
         </main>
 

@@ -12,17 +12,27 @@ const ComprobanteModal = ({ reserva, onClose }) => {
                 <div id="ticket-print" className="ticket-box">
                     <div className="ticket-header">
                         <h2>ANDORRA<span style={{color: '#3b82f6'}}>X</span></h2>
-                        <span className="confirmado"><CheckCircle size={14}/> Reserva Confirmada</span>
+                        <span className="confirmado">
+                            <CheckCircle size={14}/> {reserva.estado === 'confirmada' ? 'Reserva Confirmada' : reserva.estado}
+                        </span>
                     </div>
 
                     <div className="ticket-info">
                         <div className="ticket-row-data">
                             <span>Titular:</span>
-                            <strong>{reserva.nombre_usuario}</strong>
+                            {/* Usamos el nombre del usuario o un fallback */}
+                            <strong>{reserva.nombre_usuario || 'Cliente AndorraX'}</strong>
                         </div>
                         <div className="ticket-row-data">
                             <span>Servicio:</span>
-                            <strong>{reserva.nombre_item}</strong>
+                            {/* CAMBIO: Usamos 'nombre_objeto' que es el que viene del JOIN de SQL */}
+                            <strong style={{textTransform: 'capitalize'}}>
+                                {reserva.nombre_objeto || reserva.tipo_objeto}
+                            </strong>
+                        </div>
+                        <div className="ticket-row-data">
+                            <span>Fecha Inicio:</span>
+                            <strong>{new Date(reserva.fecha_inicio).toLocaleDateString()}</strong>
                         </div>
                         <div className="ticket-row-data">
                             <span>Referencia:</span>
@@ -31,7 +41,7 @@ const ComprobanteModal = ({ reserva, onClose }) => {
                     </div>
 
                     <div className="ticket-footer">
-                        <span>Total:</span>
+                        <span>Total Pagado:</span>
                         <strong>{reserva.precio}€</strong>
                     </div>
                 </div>

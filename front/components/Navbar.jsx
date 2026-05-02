@@ -5,27 +5,40 @@ import './Navbar.css';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const location = useLocation(); // Para detectar cambios de ruta y refrescar el estado
+    const location = useLocation();
     const [dateTime, setDateTime] = useState(new Date());
     const [isDark, setIsDark] = useState(true);
-    
-    // Estado del usuario
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         // 1. Reloj en tiempo real
         const timer = setInterval(() => setDateTime(new Date()), 1000);
         
-        // 2. Comprobar si hay usuario cada vez que cambiamos de página
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        } else {
-            setUser(null);
-        }
+        // 2. Sincronizar usuario desde localStorage
+        const syncUser = () => {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                try {
+                    setUser(JSON.parse(storedUser));
+                } catch (e) {
+                    console.error("Error al parsear usuario", e);
+                    setUser(null);
+                }
+            } else {
+                setUser(null);
+            }
+        };
 
-        return () => clearInterval(timer);
-    }, [location]); // Se ejecuta cada vez que cambia la URL
+        syncUser();
+
+        // Escuchar cambios en otras pestañas
+        window.addEventListener('storage', syncUser);
+        
+        return () => {
+            clearInterval(timer);
+            window.removeEventListener('storage', syncUser);
+        };
+    }, [location]); // Se refresca al cambiar de ruta
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -80,20 +93,25 @@ const Navbar = () => {
                             <Moon size={12} className="icon-moon-bg" />
                         </div>
 
-                        {/* --- LÓGICA CONDICIONAL DE USUARIO --- */}
+                        {/* SECCIÓN DE USUARIO */}
                         {user ? (
-                            /* SI ESTÁ CONECTADO */
                             <div className="auth-group">
-                                <div className="user-profile-tech-pill">
-                                    <User size={14} className="icon-cyan" />
-                                    <span className="user-name-mono">HOLA, {user.nombre?.toUpperCase()}</span>
-                                </div>
+                                {/* Saludo interactivo que lleva a Mis Reservas */}
+                                <Link to="/mis-reservas" className="user-profile-link">
+                                    <div className="user-profile-tech-pill interactive">
+                                        <User size={14} className="icon-cyan" />
+                                        <span className="user-name-mono">
+                                            HOLA, {user.nombre?.toUpperCase() || 'USUARIO'}
+                                        </span>
+                                        <span className="pill-arrow">›</span>
+                                    </div>
+                                </Link>
+                                
                                 <button onClick={handleLogout} className="pill-logout" title="Cerrar Sesión">
                                     <LogOut size={14} />
                                 </button>
                             </div>
                         ) : (
-                            /* SI NO ESTÁ CONECTADO */
                             <div className="auth-group">
                                 <Link to="/login" className="pill-login">
                                     <LogIn size={14} />

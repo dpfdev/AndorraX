@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../components/login.css';
+import '../pages/AndorraLoging.css';
 import api from '../services/api';
 
 const AndorraLogin = () => {
@@ -129,6 +129,7 @@ const AndorraLogin = () => {
               <Link to="/registro" style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: 'bold' }}>
                 ¿No tienes cuenta?
               </Link>
+
             </div>
 
             <button 

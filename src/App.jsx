@@ -11,6 +11,7 @@ import HotelDetalle from '../pages/HotelDetalle';
 import HotelesListado from '../pages/HotelesListado';
 import MisReservas from '../pages/MisReservas';
 import Registro from '../pages/Registro';
+import RestablecerPassword from '../pages/RestablecerPassword';
 import './index.css';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
             <Route path="/mis-reservas" element={<MisReservas />} />
             <Route path="/login" element={<AndorraLogin />} />
             <Route path="/registro" element={<Registro />} />
+            <Route path="/restablecer-password/:token" element={<RestablecerPassword />} />
           </Routes>
         </main>
 

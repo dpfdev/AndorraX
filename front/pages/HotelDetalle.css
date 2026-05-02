@@ -1,127 +1,237 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
 
+/* --- SISTEMA DE DISEÑO PROFESIONAL --- */
 :root {
-  --bg-detail: #0a0a0c;
-  --bg-card: #141418;
-  --border-ui: rgba(255, 255, 255, 0.1);
-  --text-main: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.6);
-  --accent: #00f3ff;
+  --bg-detail: #f8fafc;
+  --bg-card: #ffffff;
+  --border-ui: rgba(0, 0, 0, 0.06);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --accent: #2563eb; /* Azul corporativo moderno */
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05);
+  --map-filter: none;
 }
 
+body.dark-mode {
+  --bg-detail: #020617;
+  --bg-card: #0f172a;
+  --border-ui: rgba(255, 255, 255, 0.05);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent: #38bdf8; /* Cian suave profesional */
+  --accent-soft: rgba(56, 189, 248, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 20px 50px -12px rgba(0,0,0,0.5);
+  --map-filter: hue-rotate(180deg) invert(95%) contrast(90%) brightness(95%);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .hotel-detalle-page-fixed {
   background-color: var(--bg-detail);
   color: var(--text-main);
   min-height: 100vh;
-  padding: 120px 20px 60px;
-  font-family: 'JetBrains Mono', monospace;
+  padding: 100px 20px 80px;
+  font-family: 'Inter', -apple-system, sans-serif; /* Cambio a fuente más limpia para lectura larga */
+  transition: all 0.4s ease;
 }
 
 .container-grid-cyber {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 40px;
+  grid-template-columns: 1fr 400px;
+  gap: 48px;
 }
 
+/* --- COLUMNA DE CONTENIDO (IZQUIERDA) --- */
 .btn-back-minimal {
-  background: none; border: none; color: var(--accent);
-  font-weight: 800; cursor: pointer; display: flex;
-  align-items: center; gap: 8px; margin-bottom: 25px;
-  font-family: inherit; font-size: 0.75rem;
-}
-
-/* MARCO DEL CARRUSEL AL 60% */
-.hero-frame-carrusel-mini {
-  width: 60%;
-  aspect-ratio: 1 / 1;
-  border-radius: 12px;
-  overflow: hidden;
+  background: var(--bg-card);
   border: 1px solid var(--border-ui);
-  margin-bottom: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  color: var(--text-main);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
 }
 
-.header-flex-hotel {
-  display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+.btn-back-minimal:hover {
+  transform: translateY(-2px);
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
-.tag-id-cyan { color: var(--accent); font-size: 0.65rem; font-weight: 800; }
+.hero-frame-carrusel-mini {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 40px;
+}
+
+.hero-frame-carrusel-mini img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.tag-id-cyan { 
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
 
 .title-huge-compact {
-  font-size: 2rem; font-weight: 800; margin-bottom: 10px;
-  letter-spacing: -1.2px; text-transform: uppercase;
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 16px 0;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
 }
 
 .location-tag-cyber {
-  font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
 }
 
 .hotel-desc-card-minimal {
-  background: var(--bg-card); padding: 20px; border-radius: 12px; border-left: 2px solid var(--accent);
+  background: var(--bg-card);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid var(--border-ui);
+  box-shadow: var(--shadow-md);
 }
 
-.hotel-desc-card-minimal h3 { font-size: 0.65rem; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.hotel-desc-card-minimal p { line-height: 1.6; font-size: 0.85rem; color: var(--text-muted); }
+.hotel-desc-card-minimal h3 {
+  color: var(--text-main);
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-/* SIDEBAR & INPUTS */
+.hotel-desc-card-minimal p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* --- WIDGET DE RESERVA (SIDEBAR) --- */
 .booking-widget-cyber {
-  background: var(--bg-card); padding: 25px; border-radius: 20px; border: 1px solid var(--accent);
+  background: var(--bg-card);
+  padding: 32px;
+  border-radius: 28px;
+  border: 1px solid var(--border-ui);
+  position: sticky;
+  top: 120px;
+  box-shadow: var(--shadow-md);
 }
 
-.cyber-input-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
-.cyber-input-group label { font-size: 0.6rem; color: var(--accent); font-weight: 800; display: flex; align-items: center; gap: 5px; }
+.cyber-input-group {
+  margin-bottom: 24px;
+}
+
+.cyber-input-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  display: block;
+}
 
 .cyber-input-group input {
-  background: #000; border: 1px solid var(--border-ui); border-radius: 5px; padding: 10px; color: #fff; font-family: inherit;
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--bg-detail);
+  border: 1px solid var(--border-ui);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.cyber-input-group input:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .total-display-cyber {
-  margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-ui);
-  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid var(--bg-detail);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.total-amount-neon { font-size: 1.5rem; font-weight: 900; color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+.total-amount-neon {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
 
 .btn-reserve-neon-boost {
-  width: 100%; padding: 15px; background: var(--accent); color: #000; border: none; border-radius: 8px;
-  font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.3s;
+  width: 100%;
+  padding: 20px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 24px;
 }
 
-.btn-reserve-neon-boost.is-disabled { background: #333; color: #666; cursor: not-allowed; }
+.btn-reserve-neon-boost:hover:not(.is-disabled) {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+}
 
-.nights-hint { font-size: 0.6rem; text-align: center; margin-top: 10px; color: var(--text-muted); }
+.btn-reserve-neon-boost.is-disabled {
+  background: var(--text-muted);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* --- MAPA PROFESIONAL --- */
 .map-section-cyber {
-    margin-top: 20px;
+  margin-top: 48px;
 }
 
 .map-frame-cyber {
-    height: 300px;
-    width: 100%;
-    margin-top: 15px;
-    border: 1px solid rgba(165, 243, 252, 0.2); /* ice-cyan de tu root */
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
+  height: 400px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--border-ui);
+  box-shadow: var(--shadow-md);
 }
 
 .leaflet-container {
-    height: 100%;
-    width: 100%;
-    filter: hue-rotate(180deg) invert(90%) contrast(90%) brightness(110%);
-    /* Este filtro hace que el mapa de CartoDB Dark se vuelva más azul glaciar */
+  height: 100%;
+  width: 100%;
+  filter: var(--map-filter);
 }
 
-/* Estilo para el popup del mapa */
-.cyber-popup .leaflet-popup-content-wrapper {
-    background: #010a10;
-    color: var(--ice-cyan);
-    font-family: 'JetBrains Mono', monospace;
-    border: 1px solid var(--ice-cyan);
-    border-radius: 0;
-}
-
-.cyber-popup .leaflet-popup-tip {
-    background: #010a10;
+@media (max-width: 1100px) {
+  .container-grid-cyber { grid-template-columns: 1fr; gap: 32px; }
+  .booking-widget-cyber { position: relative; top: 0; }
 }
