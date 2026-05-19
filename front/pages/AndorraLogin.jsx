@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../pages/AndorraLogin.css';
+import '../pages/OlvidePassword';
 import api from '../src/services/api';
-
 const AndorraLogin = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -133,7 +133,7 @@ const AndorraLogin = () => {
               <label className="remember">
                 <input type="checkbox" defaultChecked /> Recordar
               </label>
-              <Link to="/olvide-password" title="Recuperar contraseña" className="forgot-link">
+              <Link to="/olvidePassword" title="Recuperar contraseña" className="forgot-link">
                 ¿Olvidaste tu clave?
               </Link>
             </div>

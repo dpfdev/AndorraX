@@ -1,6 +1,6 @@
-import { Activity, Clock, MapPin, Search } from 'lucide-react';
+import { Activity, ArrowLeft, Clock, MapPin, Search } from 'lucide-react'; // <-- CORREGIDO: Importado ArrowLeft
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../src/services/api';
 import './HotelesListado.css'; // Reutilizamos el CSS de Hoteles
 
@@ -9,6 +9,7 @@ const Actividades = () => {
     const [busqueda, setBusqueda] = useState("");
     const [cargando, setCargando] = useState(true);
     const URL_BASE = "http://localhost:3000";
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchActividades = async () => {
@@ -40,6 +41,15 @@ const Actividades = () => {
         <div className="hoteles-page"> {/* Clase base de Hoteles */}
             <div className="container">
                 
+                {/* BOTÓN VOLVER ATRÁS (ESTILO CYBER) */}
+                <button 
+                    className="btn-back-cyber" 
+                    type="button" 
+                    onClick={() => navigate('/')}
+                >
+                    <ArrowLeft size={16} /> Volver
+                </button>
+
                 {/* CABECERA Y BUSCADOR (Igual que Hoteles) */}
                 <header className="listado-header">
                     <div className="header-info">

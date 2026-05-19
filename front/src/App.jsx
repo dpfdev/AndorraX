@@ -10,13 +10,16 @@ import Navbar from '../components/Navbar';
 import ActividadDetalle from '../pages/ActividadDetalle';
 import Actividades from '../pages/Actividades';
 import AndorraLogin from '../pages/AndorraLogin';
+import ConfirmarCuenta from '../pages/ConfirmarCuenta';
 import EventoDetalle from '../pages/EventoDetalle';
 import Eventos from '../pages/Eventos'; // Asegúrate de tener esta página creada
 import Home from '../pages/Home';
 import HotelDetalle from '../pages/HotelDetalle';
 import HotelesListado from '../pages/HotelesListado';
 import MisReservas from '../pages/MisReservas';
-
+import OlvidePassword from '../pages/OlvidePassword';
+import Registro from '../pages/Registro';
+import RestablecerPassword from '../pages/RestablecerPassword';
 // Estilos globales
 import './index.css';
 
@@ -75,6 +78,10 @@ function App() {
             {/* Gestión de Reservas y Usuario */}
             <Route path="/mis-reservas" element={<MisReservas />} />
             <Route path="/login" element={<AndorraLogin />} />
+            <Route path="/registro" element={<Registro />} />
+            <Route path="/confirmar/:token" element={<ConfirmarCuenta />} />
+            <Route path="/olvidePassword" element={<OlvidePassword />} />    
+            <Route path="/restablecer-password/:token" element={<RestablecerPassword />} />        
           </Routes>
         </main>
 

@@ -18,7 +18,7 @@ export const obtenerMisReservas = async (req, res) => {
             WHERE r.id_usuario = ?
             GROUP BY r.id_reserva
             ORDER BY r.fecha_inicio DESC
-        `, [req.user.id]);
+        `, [req.usuario.id]);
         
         res.json(rows);
     } catch (e) {
@@ -41,7 +41,7 @@ export const eliminarReserva = async (req, res) => {
 // --- LAS DEMÁS FUNCIONES (reservarHotel, etc. se mantienen igual) ---
 export const reservarHotel = async (req, res) => {
     const { id_objeto, fecha_inicio, fecha_fin, precio } = req.body;
-    const id_usuario = req.user.id;
+    const id_usuario = req.usuario.id;
     const connection = await db.getConnection();
     try {
         await connection.beginTransaction();
@@ -60,7 +60,7 @@ export const reservarHotel = async (req, res) => {
 
 export const reservarActividad = async (req, res) => {
     const { id_objeto, fecha_inicio, precio } = req.body;
-    const id_usuario = req.user.id;
+    const id_usuario = req.usuario.id;
     const connection = await db.getConnection();
     try {
         await connection.beginTransaction();
@@ -79,7 +79,7 @@ export const reservarActividad = async (req, res) => {
 
 export const reservarEvento = async (req, res) => {
     const { id_objeto, fecha_inicio, precio } = req.body;
-    const id_usuario = req.user.id;
+    const id_usuario = req.usuario.id;
     const connection = await db.getConnection();
     try {
         await connection.beginTransaction();

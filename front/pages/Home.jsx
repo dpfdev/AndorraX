@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Map } from 'lucide-react';
+import { ArrowRight, Calendar, Music, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ActivityCard from '../components/ActivityCard'; // Importamos el nuevo componente
 import HotelCard from '../components/HotelCard';
-import api from '../src/services/api'; // Corregida la ruta común de servicios
+import api from '../src/services/api'; // Corregida la ruta si es necesaria
 import './Home.css';
 
 const Home = () => {
   const [data, setData] = useState({ hoteles: [], actividades: [], eventos: [] });
   const URL_BASE = "http://localhost:3000";
-  const DEFAULT_IMAGE = "/hero.jpg";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,57 +19,62 @@ const Home = () => {
           api.get('/actividades'),
           api.get('/eventos')
         ]);
-        setData({
-          hoteles: h.data.slice(0, 3),
+        setData({ 
+          hoteles: h.data.slice(0, 3), 
           actividades: a.data.slice(0, 3),
           eventos: e.data.slice(0, 3)
         });
-      } catch (err) {
-        console.error("Error cargando datos:", err);
-      }
+      } catch (err) { console.error("Error al cargar datos:", err); }
     };
     fetchData();
   }, []);
 
   return (
-    <div className="home-page">
-      <div className="bg-vignette"></div>
+    <div className="home-container">
+      {/* SECCIÓN HERO - TEMÁTICA SKI & ANDORRA */}
+      <section className="hero-viewport">
+        <div className="hero-visual">
+          <div className="hero-gradient-top"></div>
+          <img src="/hero.jpg" alt="Andorra Lujo" className="hero-img" />
+          <div className="hero-gradient-bottom"></div>
+        </div>
 
-      {/* HERO SECTION */}
-      <header className="hero-section">
-        <div className="hero-overlay"></div>
-        <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+        <motion.div 
+          className="hero-inner" 
+          initial={{ opacity: 0, y: 30 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.8 }}
         >
-          <div className="badge-promo">TEMPORADA 2026 // ANDORRA</div>
-          <h1 className="glitch-text">ANDORRA<span>X</span></h1>
-          <p className="hero-subtitle">Donde la nieve se encuentra con el lujo</p>
-          <Link to="/actividades" className="cta-button-main">EXPLORAR AHORA</Link>
-
-          <div className="mouse-scroll">
-            <div className="mouse"></div>
+          <span className="hero-tag">
+            <Sparkles size={14} /> EXPERIENCIA ALPINA 2026
+          </span>
+          <h1 className="hero-title">ANDORRA<span className="accent-x">X</span></h1>
+          <p className="hero-desc">
+            Donde el lujo se encuentra con la cumbre. Descubre refugios exclusivos, 
+            pistas infinitas y la mejor vida nocturna de los Pirineos.
+          </p>
+          
+          {/* Botones Unificados con la clase btn-hero */}
+          <div className="hero-btns">
+            <Link to="/hoteles" className="btn-hero">HOTELES</Link>
+            <Link to="/actividades" className="btn-hero">ACTIVIDADES</Link>
+            <Link to="/eventos" className="btn-hero">EVENTOS</Link>
           </div>
         </motion.div>
-      </header>
+      </section>
 
-      <main className="container">
-        {/* SECCIÓN HOTELES */}
-        <section className="home-section">
-          <div className="section-header-modern">
-            <div className="title-group">
-              <span className="section-category">STAY</span>
-              <h2 className="snow-title">Refugios de <span className="ice-gradient">Alta Montaña</span></h2>
+      <main className="content-wrapper">
+        
+        {/* SECCIÓN: HOTELES (Luxury Collection) */}
+        <section className="unified-section">
+          <header className="section-meta">
+            <div>
+              <h2 className="section-label">ESTANCIAS</h2>
+              <h3 className="section-title">Refugios de <span className="text-gradient">Alta Montaña</span></h3>
             </div>
-            <Link to="/hoteles" className="view-all-modern">
-              <span>Ver catálogo</span>
-              <div className="icon-circle"><ArrowRight size={18} /></div>
-            </Link>
-          </div>
-
-          <div className="content-grid">
+            <Link to="/hoteles" className="link-more">Ver colección <ArrowRight size={18} /></Link>
+          </header>
+          <div className="unified-grid">
             {data.hoteles.map(h => (
               <motion.div key={h.id_hotel} whileHover={{ y: -10 }}>
                 <HotelCard hotel={h} />
@@ -78,67 +83,51 @@ const Home = () => {
           </div>
         </section>
 
-        {/* SECCIÓN ACTIVIDADES */}
-        <section className="home-section">
-          <div className="section-header-modern">
-            <div className="title-group">
-              <span className="section-category">ADRENALINE</span>
-              <h2 className="snow-title">Experiencias <span className="ice-gradient">Exclusivas</span></h2>
+        {/* SECCIÓN: ACTIVIDADES (Ski & Adventure) */}
+        <section className="unified-section">
+          <header className="section-meta">
+            <div>
+              <h2 className="section-label category-cyan">ADRENALINA</h2>
+              <h3 className="section-title">Aventura en la <span className="text-gradient">Nieve</span></h3>
             </div>
-            <Link to="/actividades" className="view-all-modern">
-              <span>Explorar</span>
-              <div className="icon-circle"><ArrowRight size={18} /></div>
-            </Link>
-          </div>
-
-          <div className="content-grid">
+            <Link to="/actividades" className="link-more">Explorar pistas <ArrowRight size={18} /></Link>
+          </header>
+          <div className="unified-grid">
             {data.actividades.map(act => (
-              <Link to={`/actividades/${act.id_actividad}`} key={act.id_actividad} className="cyber-card">
-                <div className="card-media">
-                  <div className="price-tag">{act.precio}€</div>
-                  <img src={act.foto_principal ? `${URL_BASE}${act.foto_principal}` : DEFAULT_IMAGE} alt={act.nombre} />
-                  <div className="card-glow blue"></div>
-                </div>
-                <div className="card-body">
-                  <h4>{act.nombre}</h4>
-                  <div className="card-meta">
-                    <Map size={14} /> <span>{act.ciudad || 'Andorra'}</span>
-                  </div>
-                </div>
-              </Link>
+              <motion.div key={act.id_actividad} whileHover={{ y: -10 }}>
+                {/* Usamos el nuevo ActivityCard aquí */}
+                <ActivityCard actividad={act} />
+              </motion.div>
             ))}
           </div>
         </section>
 
-        {/* SECCIÓN EVENTOS */}
-        <section className="home-section">
-          <div className="section-header-modern header-purple">
-            <div className="title-group">
-              <span className="section-category category-purple">VIBES</span>
-              <h2 className="snow-title">Après-Ski <span className="ice-cultura">& Cultura</span></h2>
+        {/* SECCIÓN: EVENTOS (Après-Ski) */}
+        <section className="unified-section">
+          <header className="section-meta">
+            <div>
+              <h2 className="section-label category-purple">APRÈS-SKI</h2>
+              <h3 className="section-title">Eventos <span className="text-gradient-purple">Exclusivos</span></h3>
             </div>
-            <Link to="/eventos" className="view-all-modern">
-              <span>Agenda</span>
-              <div className="icon-circle"><Calendar size={18} /></div>
-            </Link>
-          </div>
-
-          <div className="content-grid">
+            <Link to="/eventos" className="link-more">Ver agenda <ArrowRight size={18} /></Link>
+          </header>
+          <div className="unified-grid">
             {data.eventos.map(ev => (
-              <Link to={`/eventos/${ev.id_evento}`} key={ev.id_evento} className="cyber-card event-variant">
-                <div className="card-media">
-                  <div className="event-label">LIVE</div>
-                  <img src={ev.foto_principal ? `${URL_BASE}${ev.foto_principal}` : DEFAULT_IMAGE} alt={ev.nombre} />
-                  <div className="card-glow purple"></div>
-                </div>
-                <div className="card-body">
-                  <h4>{ev.nombre}</h4>
-                  <div className="card-meta">
-                    <Calendar size={14} />
-                    <span>{new Date(ev.fecha_inicio).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}</span>
+              <motion.div key={ev.id_evento} whileHover={{ y: -10 }}>
+                <Link to={`/eventos/${ev.id_evento}`} className="pro-card event-variant">
+                  <div className="pro-card-img">
+                    <div className="pro-badge label-live">PREMIUM</div>
+                    <img src={ev.foto_principal ? `${URL_BASE}${ev.foto_principal}` : '/hero.jpg'} alt={ev.nombre} />
                   </div>
-                </div>
-              </Link>
+                  <div className="pro-card-content">
+                    <div className="pro-meta-top"><Music size={12} /> Live Set & Drinks</div>
+                    <h4>{ev.nombre}</h4>
+                    <div className="pro-location">
+                      <Calendar size={14} /> <span>{new Date(ev.fecha_inicio).toLocaleDateString('es-ES')}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </section>

@@ -2,7 +2,7 @@
 :root {
     --bg-dark: #050505;
     --bg-light: #f5f5f7;
-    --accent: #00f3ff;           /* Cian Neón */
+    --accent: #000dff;           /* Cian Neón */
     --accent-secondary: #bc13fe; /* Morado Neón */
     --text-dark: #ffffff;
     --text-light: #1d1d1f;
@@ -165,6 +165,7 @@
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+    color: #bc13fe;
 }
 
 .pill-logout {

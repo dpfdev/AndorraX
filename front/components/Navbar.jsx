@@ -1,6 +1,7 @@
 import { Clock, LogIn, LogOut, Moon, Sun, User, UserPlus } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import './Navbar.css';
 
 const Navbar = () => {

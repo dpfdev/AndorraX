@@ -20,7 +20,7 @@ export const verificarToken = (req, res, next) => {
         }
 
         // Usamos 'user' para que coincida con el controlador
-        req.user = { 
+        req.usuario = { 
             id: userId, 
             rol: decoded.rol 
         };
@@ -35,7 +35,7 @@ export const verificarUsuario = verificarToken;
 
 export const verificarAdmin = (req, res, next) => {
     verificarToken(req, res, () => {
-        if (req.user && req.user.rol === 'admin') {
+        if (req.usuario && req.usuario.rol === 'admin') {
             next();
         } else {
             res.status(403).json({ error: "Acceso denegado: Se requiere rol de administrador" });

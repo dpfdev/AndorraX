@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { ExternalLink, Trash2 } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Trash2 } from 'lucide-react'; // <-- Importamos ArrowLeft
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // <-- Importamos useNavigate
 import ComprobanteModal from "../components/ComprobanteModal";
 import './MisReservas.css';
 
@@ -9,6 +10,8 @@ const MisReservas = () => {
     const [filtro, setFiltro] = useState('todos');
     const [reservaSeleccionada, setReservaSeleccionada] = useState(null);
     const [loading, setLoading] = useState(true);
+    
+    const navigate = useNavigate(); // <-- Inicializamos el hook de navegación
 
     const API_URL = "http://localhost:3000";
 
@@ -51,6 +54,16 @@ const MisReservas = () => {
     return (
         <div className="reservas-container">
             <header className="reservas-header-v2">
+                {/* BOTÓN VOLVER ATRÁS */}
+                <button 
+                    className="btn-back-reservas" 
+                    type="button" 
+                    onClick={() => navigate(-1)} // <-- "-1" regresa a la pantalla de donde venía el usuario
+                    title="Volver atrás"
+                >
+                    <ArrowLeft size={20} /> Volver
+                </button>
+                
                 <h1>Mis Reservas</h1>
             </header>
 
@@ -67,33 +80,37 @@ const MisReservas = () => {
             </div>
 
             <div className="reservas-grid-modern">
-                {reservasFiltradas.map((reserva) => (
-                    <div key={reserva.id_reserva} className="reserva-card-modern">
-                        <div className="reserva-image-wrapper">
-                            <img 
-                                src={reserva.imagen_url ? `${API_URL}${reserva.imagen_url}` : "https://via.placeholder.com/400x300"} 
-                                alt={reserva.nombre_objeto} 
-                            />
-                            <div className="price-tag">{reserva.precio}€</div>
-                        </div>
+                {reservasFiltradas.length === 0 ? (
+                    <p className="no-reservas">No tienes reservas en esta categoría.</p>
+                ) : (
+                    reservasFiltradas.map((reserva) => (
+                        <div key={reserva.id_reserva} className="reserva-card-modern">
+                            <div className="reserva-image-wrapper">
+                                <img 
+                                    src={reserva.imagen_url ? `${API_URL}${reserva.imagen_url}` : "https://via.placeholder.com/400x300"} 
+                                    alt={reserva.nombre_objeto} 
+                                />
+                                <div className="price-tag">{reserva.precio}€</div>
+                            </div>
 
-                        <div className="reserva-content">
-                            <h3>{reserva.nombre_objeto || reserva.tipo_objeto.toUpperCase()}</h3>
-                            <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>
-                                Fecha: {new Date(reserva.fecha_inicio).toLocaleDateString()}
-                            </p>
-                            
-                            <div className="reserva-footer">
-                                <button className="btn-secondary" onClick={() => setReservaSeleccionada(reserva)}>
-                                    <ExternalLink size={16} /> Ver Ticket
-                                </button>
-                                <button className="btn-danger-outline" onClick={() => handleEliminar(reserva.id_reserva)}>
-                                    <Trash2 size={16} />
-                                </button>
+                            <div className="reserva-content">
+                                <h3>{reserva.nombre_objeto || reserva.tipo_objeto.toUpperCase()}</h3>
+                                <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>
+                                    Fecha: {new Date(reserva.fecha_inicio).toLocaleDateString()}
+                                </p>
+                                
+                                <div className="reserva-footer">
+                                    <button className="btn-secondary" onClick={() => setReservaSeleccionada(reserva)}>
+                                        <ExternalLink size={16} /> Ver Ticket
+                                    </button>
+                                    <button className="btn-danger-outline" onClick={() => handleEliminar(reserva.id_reserva)}>
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
 
             {/* MODAL DE TICKET */}

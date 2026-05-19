@@ -1,6 +1,6 @@
-import { Building2, MapPin, Search, Star } from 'lucide-react';
+import { ArrowLeft, Building2, MapPin, Search, Star } from 'lucide-react'; // <-- Añadido ArrowLeft
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // <-- Añadido useNavigate
 import api from '../src/services/api';
 import './HotelesListado.css';
 
@@ -8,6 +8,7 @@ const HotelesListado = () => {
     const [hoteles, setHoteles] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [cargando, setCargando] = useState(true);
+    const navigate = useNavigate(); // <-- Inicializado el hook de navegación
 
     useEffect(() => {
         const fetchHoteles = async () => {
@@ -39,6 +40,15 @@ const HotelesListado = () => {
         <div className="hoteles-page">
             <div className="container">
                 
+                {/* BOTÓN VOLVER ATRÁS (ESTILO CYBER) */}
+                <button 
+                    className="btn-back-cyber" 
+                    type="button" 
+                    onClick={() => navigate('/')} // Puedes cambiar '/' por -1 si prefieres volver a la página exacta anterior
+                >
+                    <ArrowLeft size={16} /> Volver
+                </button>
+
                 {/* CABECERA Y BUSCADOR */}
                 <header className="listado-header">
                     <div className="header-info">

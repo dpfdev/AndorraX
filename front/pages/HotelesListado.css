@@ -154,6 +154,31 @@
 .hotel-card-cyber:hover .footer-line {
     width: 100%;
 }
+.btn-back-cyber {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(0, 242, 254, 0.3); /* Cambia el color por el cyan/azul de tu paleta */
+    color: var(--text-light);
+    font-family: monospace; /* Consistencia de consola */
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-back-cyber:hover {
+    background: rgba(0, 242, 254, 0.1);
+    border-color: #00f2fe;
+    color: #00f2fe; /* Color acento dinámico */
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+    transform: translateX(-4px);
+}
 
 @media (max-width: 768px) {
     .listado-header { flex-direction: column; align-items: flex-start; }

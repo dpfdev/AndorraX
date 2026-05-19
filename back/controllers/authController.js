@@ -37,6 +37,7 @@ export const confirmarCuenta = async (req, res) => {
 };
 
 // LOGIN
+// LOGIN CORREGIDO
 export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -47,10 +48,29 @@ export const login = async (req, res) => {
         const passOk = await bcrypt.compare(password, rows[0].password);
         if (!passOk) return res.status(401).json({ error: "Password incorrecto" });
 
-        const token = jwt.sign({ id: rows[0].id_usuario }, process.env.JWT_SECRET, { expiresIn: '24h' });
-        res.json({ token, user: { nombre: rows[0].nombre } });
-    } catch (e) { res.status(500).json({ error: "Error en login" }); }
+        // 1. IMPORTANTE: Guardamos tanto el id como el rol en el Token JWT
+        const token = jwt.sign(
+            { id_usuario: rows[0].id_usuario, rol: rows[0].rol }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '24h' }
+        );
+
+        // 2. Respondemos con la propiedad 'usuario' normalizada en español
+        res.json({ 
+            token, 
+            usuario: { 
+                id: rows[0].id_usuario,
+                nombre: rows[0].nombre,
+                email: rows[0].email,
+                rol: rows[0].rol
+            } 
+        });
+    
+    } catch (e) { 
+        res.status(500).json({ error: "Error en login" }); 
+    
 };
+}
 
 // SOLICITAR RECUPERACIÓN
 export const solicitarRecuperacion = async (req, res) => {

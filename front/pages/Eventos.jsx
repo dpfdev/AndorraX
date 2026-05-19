@@ -1,12 +1,13 @@
-import { ArrowRight, Calendar, MapPin, Music } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, MapPin, Music } from 'lucide-react'; // <-- Importado ArrowLeft
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // <-- Importado useNavigate
 import api from '../src/services/api';
 import './Eventos.css'; // Asegúrate de que use el mismo layout que Actividades.css
 
 const Eventos = () => {
     const [eventos, setEventos] = useState([]);
     const URL_BASE = "http://localhost:3000";
+    const navigate = useNavigate(); // <-- Inicializado el hook de navegación
 
     useEffect(() => {
         const fetchEventos = async () => {
@@ -25,6 +26,17 @@ const Eventos = () => {
             <header className="eventos-header-cyber">
                 <div className="header-overlay"></div>
                 <div className="container header-content">
+                    
+                    {/* BOTÓN VOLVER ATRÁS (ESTILO CYBER) */}
+                    <button 
+                        className="btn-back-cyber" 
+                        type="button" 
+                        onClick={() => navigate('/')} 
+                        style={{ marginBottom: '15px', position: 'relative', zIndex: 3 }} 
+                    >
+                        <ArrowLeft size={16} /> Volver
+                    </button>
+
                     <div className="header-meta">/ AGENDA // 2026</div>
                     <h1 className="glitch-title">Events & <span className="x-neon">Experience</span></h1>
                 </div>

@@ -8,18 +8,55 @@
 }
 
 .reservas-container {
+    padding-top: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 40px auto;
     padding: 40px 20px;
     background-color: var(--bg-gray);
     min-height: 100vh;
+}
+
+/* CABECERA: Contenedor con Flexbox */
+.reservas-header-v2 {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Mantiene el contenido alineado al centro */
+    position: relative;      /* Permite posicionar el botón de forma absoluta respecto a la cabecera */
+    margin-bottom: 30px;
+    width: 100%;
 }
 
 .reservas-header-v2 h1 {
     font-size: 2.2rem;
     font-weight: 800;
     color: var(--text-dark);
-    margin-bottom: 30px;
+    margin: 0;              /* Limpiamos márgenes para evitar descuadres */
+    text-align: center;
+}
+
+/* NUEVO: Botón Volver Atrás */
+.btn-back-reservas {
+    position: absolute;      /* Se desengancha del flujo para no mover al H1 del centro */
+    left: 0;                 /* Lo empuja totalmente a la izquierda */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    border: 1px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
+}
+
+.btn-back-reservas:hover {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateX(-2px); /* Pequeño efecto dinámico hacia la izquierda */
 }
 
 /* Filtros */
@@ -98,6 +135,15 @@
     font-size: 1.3rem;
     margin-bottom: 8px;
     color: var(--text-dark);
+}
+
+/* Mensaje sin reservas */
+.no-reservas {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: var(--text-light);
+    font-weight: 500;
 }
 
 .reserva-footer {
@@ -215,4 +261,18 @@
 @keyframes slideUp {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+}
+
+/* RESPONSIVO: Adaptación para pantallas pequeñas */
+@media (max-width: 650px) {
+    .reservas-header-v2 {
+        flex-direction: column; /* Apila el botón arriba y el título abajo */
+        gap: 15px;
+    }
+    
+    .btn-back-reservas {
+        position: static;      /* Elimina la posición absoluta en móviles */
+        width: 100%;           /* Hace que el botón ocupe todo el ancho */
+        justify-content: center;
+    }
 }
